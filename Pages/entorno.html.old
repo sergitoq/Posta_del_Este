@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entorno — Posta del Este</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="../index.html" class="nav-brand">Posta del Este</a>
+  <button class="burger" id="burger"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html">Inicio</a></li>
+    <li><a href="disponibilidad.html">Disponibilidad</a></li>
+    <li><a href="casa-frente.html">Casa Frente</a></li>
+    <li><a href="casa-fondo.html">Casa Fondo</a></li>
+    <li><a href="alcances.html">Alcances</a></li>
+    <li><a href="como-llegar.html">Como llegar</a></li>
+    <li><a href="entorno.html" class="active">Entorno</a></li>
+  </ul>
+</nav>
+
+<header class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=1400&q=80')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="page-eyebrow">El lugar</p>
+    <h1>El <em>entorno</em></h1>
+    <p>Bosque de pinos, reserva ecológica y playa atlántica a minutos caminando.</p>
+  </div>
+</header>
+
+<section class="page-body">
+  <div class="container">
+
+    <div class="entorno-grid">
+      <div class="entorno-img">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=80" alt="Playa atlántica Costa del Este">
+      </div>
+      <div class="entorno-text">
+        <p class="section-eyebrow">A 4 cuadras</p>
+        <h3>La playa <em>atlántica</em></h3>
+        <p class="body-text">Desde el predio podés llegar a la playa en 5 minutos caminando, por la bicisenda asfaltada que atraviesa la reserva. Una experiencia muy diferente a la de los balnearios masivos — la playa de Costa del Este es tranquila, familiar, con arena firme y oleaje atlántico.</p>
+      </div>
+    </div>
+
+    <div class="entorno-grid" style="direction:rtl">
+      <div class="entorno-img" style="direction:ltr">
+        <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=900&q=80" alt="Bosque de pinos">
+      </div>
+      <div class="entorno-text" style="direction:ltr">
+        <p class="section-eyebrow">Frente al predio</p>
+        <h3>El bosque de <em>pinos</em></h3>
+        <p class="body-text">El predio está frente a la reserva ecológica y rodeado de pinos. El microclima que generan es notable: sombra, aroma, pájaros, temperatura más fresca. El tipo de descanso donde te olvidás de la pantalla.</p>
+      </div>
+    </div>
+
+    <div class="entorno-grid">
+      <div class="entorno-img">
+        <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=900&q=80" alt="Costa del Este tranquila">
+      </div>
+      <div class="entorno-text">
+        <p class="section-eyebrow">A 6 cuadras</p>
+        <h3>El <em>centro</em> del pueblo</h3>
+        <p class="body-text">Supermercados, almacenes, restaurantes y parrillas a pocas cuadras. Costa del Este tiene todo lo necesario sin el ruido de los balnearios grandes. Zona segura, calles tranquilas, comunidad familiar.</p>
+      </div>
+    </div>
+
+    <div class="info-box" style="margin-top:1rem">
+      <p>🚲 Todo accesible a pie o en bici. El centro, la playa y la reserva quedan dentro de un radio de 6 cuadras del predio.</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2>¿Querés conocer más?</h2>
+  <p>Escribinos, respondemos todas tus dudas.</p>
+  <div class="cta-btns">
+    <a href="https://wa.me/5491167899975?text=Hola%20Sergio%2C%20me%20interesa%20Posta%20del%20Este%3A" class="btn-wa" target="_blank">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+    <a href="tel:01167899975" class="btn-tel-sm">📞 11 6789-9975</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">Posta del Este</div>
+  <nav class="footer-nav">
+    <a href="../index.html">Inicio</a>
+    <a href="disponibilidad.html">Disponibilidad</a>
+    <a href="casa-frente.html">Casa Frente</a>
+    <a href="casa-fondo.html">Casa Fondo</a>
+    <a href="alcances.html">Alcances</a>
+    <a href="como-llegar.html">Como llegar</a>
+    <a href="entorno.html">Entorno</a>
+  </nav>
+  <p class="footer-copy">© 2010–2026 Posta del Este · Costa del Este, Buenos Aires</p>
+</footer>
+
+<script>
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+</script>
+</body>
+</html>
