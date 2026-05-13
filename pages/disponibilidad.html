@@ -47,6 +47,7 @@ tbody td.disponible{text-align:center;}
   font-size:1rem;font-weight:600;transition:all .25s;}
 .btn-wa:hover{background:#1ebe5d;transform:translateY(-2px);}
 .version{color:rgba(255,255,255,0.2);font-size:0.7rem;text-align:right;margin-top:1rem;}
+.nav-links a.active{color:#fff;background:rgba(255,255,255,0.18);font-weight:600;}
 @media(max-width:600px){
   .content{padding:3rem 1.25rem 4rem;}
   .page-hero{padding:5rem 1.5rem 2.5rem;}
@@ -59,6 +60,7 @@ tbody td.disponible{text-align:center;}
   <button class='burger' id='burger'><span></span><span></span><span></span></button>
   <ul class='nav-links' id='navLinks'>
     <li><a href='../index.html'>Inicio</a></li>
+    <li><a href='disponibilidad.html'>Disponibilidad</a></li>
     <li><a href='casa-frente.html'>Casa Frente</a></li>
     <li><a href='casa-fondo.html'>Casa Fondo</a></li>
     <li><a href='alcances.html'>Alcances</a></li>
@@ -242,7 +244,7 @@ tbody td.disponible{text-align:center;}
       WhatsApp &#8212; Sergio
     </a>
   </div>
-  <p class='version'>Versión 12/May/26 16:46</p>
+  <p class='version'>Versión 13/May/26 09:00</p>
 </main>
 <footer>
   <div class='footer-brand'>Posta del Este</div>
@@ -262,5 +264,13 @@ tbody td.disponible{text-align:center;}
   const navLinks = document.getElementById('navLinks');
   burger.addEventListener('click', () => navLinks.classList.toggle('open'));
   navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    const href = a.getAttribute('href');
+    if (href && !href.startsWith('#')) {
+      const current = location.pathname.split('/').pop() || 'index.html';
+      const target = href.split('/').pop();
+      if (target === current) a.classList.add('active');
+    }
+  });
 </script>
 </body></html>

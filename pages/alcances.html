@@ -308,7 +308,8 @@
     <li><a href="disponibilidad.html">Disponibilidad</a></li>
     <li><a href="casa-frente.html">Casa Frente</a></li>
     <li><a href="casa-fondo.html">Casa Fondo</a></li>
-        <li><a href="como-llegar.html">Como llegar</a></li>
+    <li><a href="alcances.html">Alcances</a></li>
+    <li><a href="como-llegar.html">Como llegar</a></li>
     <li><a href="entorno.html">Entorno</a></li>
   </ul>
     <button class="burger" id="burger"><span></span><span></span><span></span></button>
@@ -525,6 +526,15 @@
     const burger = document.getElementById('burger');
     const navLinks = document.getElementById('navLinks');
     burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  // Página activa en nav
+  document.querySelectorAll(".nav-links a").forEach(a => {
+    const href = a.getAttribute("href");
+    if (href && !href.startsWith("#")) {
+      const current = location.pathname.split("/").pop() || "index.html";
+      const target = href.split("/").pop();
+      if (target === current) a.classList.add("active");
+    }
+  });
     navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
   </script>
 

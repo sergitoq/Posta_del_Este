@@ -175,6 +175,9 @@
       .entorno-block.reverse > * { direction: ltr; }
     }
   </style>
+  <style>
+    .nav-links a.active { color: #fff; background: rgba(255,255,255,0.18); font-weight: 600; }
+  </style>
 </head>
 <body>
 
@@ -188,6 +191,7 @@
     <li><a href="casa-fondo.html">Casa Fondo</a></li>
     <li><a href="alcances.html">Alcances</a></li>
     <li><a href="como-llegar.html">Como llegar</a></li>
+    <li><a href="entorno.html">Entorno</a></li>
       </ul>
 </nav>
 
@@ -315,6 +319,15 @@
   // Navbar
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => navbar.classList.toggle('solid', scrollY > 80));
+  // Página activa en nav
+  document.querySelectorAll(".nav-links a").forEach(a => {
+    const href = a.getAttribute("href");
+    if (href && !href.startsWith("#")) {
+      const current = location.pathname.split("/").pop() || "index.html";
+      const target = href.split("/").pop();
+      if (target === current) a.classList.add("active");
+    }
+  });
 
   // Burger
   const burger = document.getElementById('burger');
