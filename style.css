@@ -302,17 +302,24 @@ footer {
   .entorno-img img { height: 260px; }
 }
 @media (max-width: 768px) {
-  #navbar { padding: 1rem 1.25rem; }
+  #navbar { padding: 1rem 1.25rem; z-index: 102; }
   .nav-links {
-    display: none; flex-direction: column;
-    position: fixed; inset: 0;
-    background: var(--pine);
-    justify-content: center; align-items: center;
-    gap: 2rem; z-index: 101;
+    display: none;
+    flex-direction: column !important;
+    position: fixed !important;
+    inset: 0 !important;
+    background: var(--pine) !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 2rem !important;
+    z-index: 103 !important;
+    margin-left: 0 !important;
+    flex-shrink: unset !important;
+    padding: 0 !important;
   }
   .nav-links.open { display: flex; }
   .nav-links a { font-size: 1.2rem; }
-  .burger { display: flex; z-index: 102; }
+  .burger { display: flex; z-index: 104; }
   .page-hero { padding: 7rem 1.5rem 3rem; }
   .page-body { padding: 4rem 1.5rem 4rem; }
   .cta-section { padding: 4rem 1.5rem; }
