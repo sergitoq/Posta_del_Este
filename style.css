@@ -57,6 +57,7 @@ a { text-decoration: none; color: inherit; }
 .burger {
   display: none; flex-direction: column; gap: 5px;
   background: none; border: none; cursor: pointer; margin-left: 1rem;
+  flex-shrink: 0;
 }
 .burger span { width: 22px; height: 2px; background: white; display: block; }
 
@@ -301,6 +302,7 @@ footer {
   .entorno-img img { height: 260px; }
 }
 @media (max-width: 768px) {
+  #navbar { padding: 1rem 1.25rem; }
   .nav-links {
     display: none; flex-direction: column;
     position: fixed; inset: 0;
@@ -315,6 +317,7 @@ footer {
   .page-body { padding: 4rem 1.5rem 4rem; }
   .cta-section { padding: 4rem 1.5rem; }
   .amenities-grid { grid-template-columns: 1fr; }
+  .content { overflow-x: auto; }
 }
 @media (max-width: 540px) {
   .cta-btns { flex-direction: column; align-items: center; }
