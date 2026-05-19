@@ -17,13 +17,10 @@
 .page-hero p{color:rgba(255,255,255,0.6);font-size:1rem;margin-top:0.75rem;}
 .content{max-width:900px;margin:0 auto;padding:4rem 3rem 6rem;}
 .nav-links a.active{color:#fff;background:rgba(255,255,255,0.18);font-weight:600;}
-.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:2rem;}
 @media(max-width:600px){
   .content{padding:3rem 1.25rem 4rem;}
   .page-hero{padding:7rem 1.5rem 2.5rem;}
-  tbody td,thead th{padding:0.5rem 0.35rem;font-size:0.75rem;}
-  thead th{letter-spacing:0.05em;}
-  .badge-disp,.badge-cons{font-size:0.65rem;padding:0.2rem 0.4rem;}
+  tbody td{padding:0.6rem 0.5rem;font-size:0.82rem;}
 }
 table{width:100%;border-collapse:collapse;}
 thead th{font-size:0.72rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;
@@ -56,6 +53,15 @@ tbody td.disponible{text-align:center;}
   font-size:1rem;font-weight:600;transition:all .25s;}
 .btn-wa:hover{background:#1ebe5d;transform:translateY(-2px);}
 .version{color:rgba(255,255,255,0.2);font-size:0.7rem;text-align:right;margin-top:1rem;}
+@media(max-width:480px){
+  table{table-layout:fixed;}
+  thead th:nth-child(1){width:28%;}
+  thead th:nth-child(2){width:32%;}
+  thead th:nth-child(3),thead th:nth-child(4){width:20%;}
+  thead th{font-size:0.6rem;padding:0.5rem 0.3rem;letter-spacing:0.05em;}
+  tbody td{font-size:0.75rem;padding:0.5rem 0.3rem;}
+  .badge-disp,.badge-cons{font-size:0.62rem;padding:0.2rem 0.35rem;}
+}
 </style></head>
 <body>
 <nav id='navbar'>
@@ -88,13 +94,13 @@ tbody td.disponible{text-align:center;}
       <tr>
         <td>1a semana Dic</td>
         <td class='fecha'>Sáb 05/12 al Sáb 12/12</td>
-        <td class='disponible'><span class='badge-cons'>zzzzz</span></td>
+        <td class='disponible'><a href='https://wa.me/5491167899975?text=Sitio%3A%20https%3A%2F%2Fpostadeleste.com.ar%0A%0AHola%20Sergio%2C%20buen%20d%C3%ADa%21%20Tengo%20inter%C3%A9s%20en%20alquilar%20tu%20propiedad%20en%20Costa%20del%20Este%2C%20para%20el%20per%C3%ADodo%201a%20semana%20Dic%20-%20S%C3%A1b%2005%2F12%20al%20S%C3%A1b%2012%2F12%20%28Casa%20Frente%29%20y%20cantidad%20de%20personas%20que%20detallo%20a%20continuaci%C3%B3n%3A%0A' class='badge-disp' target='_blank'>Disponible</a></td>
         <td class='disponible'><a href='https://wa.me/5491167899975?text=Sitio%3A%20https%3A%2F%2Fpostadeleste.com.ar%0A%0AHola%20Sergio%2C%20buen%20d%C3%ADa%21%20Tengo%20inter%C3%A9s%20en%20alquilar%20tu%20propiedad%20en%20Costa%20del%20Este%2C%20para%20el%20per%C3%ADodo%201a%20semana%20Dic%20-%20S%C3%A1b%2005%2F12%20al%20S%C3%A1b%2012%2F12%20%28Casa%20Fondo%29%20y%20cantidad%20de%20personas%20que%20detallo%20a%20continuaci%C3%B3n%3A%0A' class='badge-disp' target='_blank'>Disponible</a></td>
       </tr>
       <tr>
         <td>2a semana Dic</td>
         <td class='fecha'>Sáb 12/12 al Sáb 19/12</td>
-        <td class='disponible'><span class='badge-vacio'></span></td>
+        <td class='disponible'><a href='https://wa.me/5491167899975?text=Sitio%3A%20https%3A%2F%2Fpostadeleste.com.ar%0A%0AHola%20Sergio%2C%20buen%20d%C3%ADa%21%20Tengo%20inter%C3%A9s%20en%20alquilar%20tu%20propiedad%20en%20Costa%20del%20Este%2C%20para%20el%20per%C3%ADodo%202a%20semana%20Dic%20-%20S%C3%A1b%2012%2F12%20al%20S%C3%A1b%2019%2F12%20%28Casa%20Frente%29%20y%20cantidad%20de%20personas%20que%20detallo%20a%20continuaci%C3%B3n%3A%0A' class='badge-disp' target='_blank'>Disponible</a></td>
         <td class='disponible'><a href='https://wa.me/5491167899975?text=Sitio%3A%20https%3A%2F%2Fpostadeleste.com.ar%0A%0AHola%20Sergio%2C%20buen%20d%C3%ADa%21%20Tengo%20inter%C3%A9s%20en%20alquilar%20tu%20propiedad%20en%20Costa%20del%20Este%2C%20para%20el%20per%C3%ADodo%202a%20semana%20Dic%20-%20S%C3%A1b%2012%2F12%20al%20S%C3%A1b%2019%2F12%20%28Casa%20Fondo%29%20y%20cantidad%20de%20personas%20que%20detallo%20a%20continuaci%C3%B3n%3A%0A' class='badge-disp' target='_blank'>Disponible</a></td>
       </tr>
       <tr>
@@ -247,7 +253,7 @@ tbody td.disponible{text-align:center;}
       WhatsApp &#8212; Sergio
     </a>
   </div>
-  <p class='version'>Versi&#243;n 19/May/26 18:09</p>
+  <p class='version'>Versi&#243;n 19/May/26 18:24</p>
 </main>
 <footer>
   <div class='footer-brand'>Posta del Este</div>
