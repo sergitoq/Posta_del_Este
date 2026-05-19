@@ -24,13 +24,15 @@ a{text-decoration:none;color:inherit;}
   padding:0.4rem 0.65rem;border-radius:2rem;transition:all .2s;}
 .nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,0.12);}
 .burger{display:none;flex-direction:column;gap:5px;
-  background:none;border:none;cursor:pointer;margin-left:1rem;}
+  background:none;border:none;cursor:pointer;margin-left:1rem;z-index:101;}
 .burger span{width:22px;height:2px;background:white;display:block;}
-@media(max-width:768px){
-  .nav-links{display:none;flex-direction:column;position:absolute;
-    top:100%;left:0;right:0;background:rgba(14,35,24,0.98);
-    padding:1rem;gap:0.25rem;box-shadow:0 8px 20px rgba(0,0,0,0.3);}
+@media(max-width:900px){
+  #navbar{padding:1rem 1.5rem;}
+  .nav-links{display:none;position:fixed;inset:0;background:#1e3d2f;
+    flex-direction:column;justify-content:center;align-items:center;
+    gap:2rem;z-index:99;}
   .nav-links.open{display:flex;}
+  .nav-links a{font-size:1.2rem;}
   .burger{display:flex;}
 }
 footer{background:#0a1510;border-top:1px solid rgba(255,255,255,0.07);padding:3rem 2rem;text-align:center;}
@@ -157,7 +159,7 @@ tbody td.disponible{text-align:center;}
       <tr>
         <td>4a semana Ene</td>
         <td class='fecha'>Sáb 23/01 al Sáb 30/01</td>
-        <td class='disponible'><span class='badge-vacio'></span></td>
+        <td class='disponible'><a href='https://wa.me/5491167899975?text=Sitio%3A%20https%3A%2F%2Fwww.postadeleste.com.ar%0A%0AHola%20Sergio%2C%20buen%20d%C3%ADa%21%20Tengo%20inter%C3%A9s%20en%20alquilar%20tu%20propiedad%20en%20Costa%20del%20Este%2C%20para%20el%20per%C3%ADodo%204a%20semana%20Ene%20-%20S%C3%A1b%2023%2F01%20al%20S%C3%A1b%2030%2F01%20%28Casa%20Frente%29%20y%20cantidad%20de%20personas%20que%20detallo%20a%20continuaci%C3%B3n%3A%0A' class='badge-disp' target='_blank'>Disponible</a></td>
         <td class='disponible'><a href='https://wa.me/5491167899975?text=Sitio%3A%20https%3A%2F%2Fwww.postadeleste.com.ar%0A%0AHola%20Sergio%2C%20buen%20d%C3%ADa%21%20Tengo%20inter%C3%A9s%20en%20alquilar%20tu%20propiedad%20en%20Costa%20del%20Este%2C%20para%20el%20per%C3%ADodo%204a%20semana%20Ene%20-%20S%C3%A1b%2023%2F01%20al%20S%C3%A1b%2030%2F01%20%28Casa%20Fondo%29%20y%20cantidad%20de%20personas%20que%20detallo%20a%20continuaci%C3%B3n%3A%0A' class='badge-disp' target='_blank'>Disponible</a></td>
       </tr>
       <tr>
@@ -274,7 +276,7 @@ tbody td.disponible{text-align:center;}
       WhatsApp &#8212; Sergio
     </a>
   </div>
-  <p class='version'>Versi&#243;n 19/May/26 16:25</p>
+  <p class='version'>Versi&#243;n 19/May/26 16:40</p>
 </main>
 <footer>
   <div class='footer-brand'>Posta del Este</div>
