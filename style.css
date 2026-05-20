@@ -1,4 +1,4 @@
-/* ─────────────────────────────────────────
+﻿/* ─────────────────────────────────────────
    Posta del Este — style.css
    Shared stylesheet for all pages/ files
    ───────────────────────────────────────── */
@@ -22,7 +22,7 @@ html { scroll-behavior: smooth; }
 body { font-family: 'Outfit', sans-serif; background: var(--dark); color: var(--white); overflow-x: hidden; }
 a { text-decoration: none; color: inherit; }
 
-/* ── NAV ── */
+/* ── NAV ──z */
 #navbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center;
@@ -304,16 +304,15 @@ footer {
   .nav-links {
     display: none; flex-direction: column;
     position: fixed; inset: 0;
-    background: #0a1a10;
+    background: #0a1a10 !important;
     justify-content: center; align-items: center;
-    gap: 2rem; z-index: 200;
+    gap: 2rem; z-index: 999;
   }
   .nav-links.open { display: flex; }
-  .nav-links a { font-size: 1.2rem; color: rgba(255,255,255,0.85); }
+  .nav-links a { font-size: 1.3rem; color: rgba(255,255,255,0.85) !important; }
   .nav-links a:hover,
-  .nav-links a.active { color: #fff; background: rgba(255,255,255,0.12); }
-  .nav-links .cta { background: var(--sunset) !important; color: #fff !important; }
-  .burger { display: flex; z-index: 101; }
+  .nav-links a.active { color: #fff !important; background: rgba(255,255,255,0.12); }
+  .burger { display: flex; z-index: 1000; }
   .page-hero { padding: 7rem 1.5rem 3rem; }
   .page-body { padding: 4rem 1.5rem 4rem; }
   .cta-section { padding: 4rem 1.5rem; }
