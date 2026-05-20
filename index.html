@@ -58,20 +58,6 @@
     .nav-links a.active { color: #fff; background: rgba(255,255,255,0.18); font-weight: 600; }
     .burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
     .burger span { width: 22px; height: 2px; background: white; display: block; }
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none; flex-direction: column;
-        position: fixed; inset: 0;
-        background: #0a1a10;
-        justify-content: center; align-items: center;
-        gap: 2rem; z-index: 200;
-      }
-      .nav-links.open { display: flex; }
-      .nav-links a { font-size: 1.2rem; color: rgba(255,255,255,0.85); }
-      .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.12); }
-      .nav-links .cta { background: var(--sunset) !important; color: #fff !important; }
-      .burger { display: flex; z-index: 201; }
-    }
 
     /* ── HERO ── */
     .hero {
@@ -434,7 +420,10 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
-      /* nav móvil — controlado por el bloque @media (max-width:768px) de arriba */
+      .nav-links { display: none; position: fixed; inset: 0; background: var(--pine); flex-direction: column; justify-content: center; align-items: center; gap: 2rem; z-index: 99; }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 1.2rem; }
+      .burger { display: flex; z-index: 101; }
       .hero-content { padding: 0 1.5rem 4rem; }
       .intro-inner { grid-template-columns: 1fr; gap: 2.5rem; }
       .intro-img-wrap img { height: 320px; }

@@ -242,7 +242,7 @@ a { text-decoration: none; color: inherit; }
 
 /* ── CTA SECTION ── */
 .cta-section {
-  background: #0a1a10;
+  background: var(--pine);
   padding: 6rem 3rem; text-align: center;
 }
 .cta-section h2 {
@@ -304,13 +304,13 @@ footer {
   .nav-links {
     display: none; flex-direction: column;
     position: fixed; inset: 0;
-    background: #0a1a10;
+    background: var(--pine);
     justify-content: center; align-items: center;
-    gap: 2rem; z-index: 9999;
+    gap: 2rem; z-index: 99;
   }
   .nav-links.open { display: flex; }
   .nav-links a { font-size: 1.2rem; }
-  .burger { display: flex; z-index: 10000; }
+  .burger { display: flex; z-index: 101; }
   .page-hero { padding: 7rem 1.5rem 3rem; }
   .page-body { padding: 4rem 1.5rem 4rem; }
   .cta-section { padding: 4rem 1.5rem; }

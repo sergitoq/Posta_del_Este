@@ -102,6 +102,20 @@
   <p class="footer-copy">© 2010–2026 Posta del Este · Costa del Este, Buenos Aires</p>
 </footer>
 
-<script src="../menu.js"></script>
+<script>
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  // Página activa en nav
+  document.querySelectorAll(".nav-links a").forEach(a => {
+    const href = a.getAttribute("href");
+    if (href && !href.startsWith("#")) {
+      const current = location.pathname.split("/").pop() || "index.html";
+      const target = href.split("/").pop();
+      if (target === current) a.classList.add("active");
+    }
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+</script>
 </body>
 </html>
