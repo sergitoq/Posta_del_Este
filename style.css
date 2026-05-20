@@ -306,11 +306,11 @@ footer {
     position: fixed; inset: 0;
     background: var(--pine);
     justify-content: center; align-items: center;
-    gap: 2rem; z-index: 99;
+    gap: 2rem; z-index: 9999;
   }
   .nav-links.open { display: flex; }
   .nav-links a { font-size: 1.2rem; }
-  .burger { display: flex; z-index: 101; }
+  .burger { display: flex; z-index: 10000; }
   .page-hero { padding: 7rem 1.5rem 3rem; }
   .page-body { padding: 4rem 1.5rem 4rem; }
   .cta-section { padding: 4rem 1.5rem; }
