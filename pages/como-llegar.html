@@ -105,7 +105,10 @@
 <script>
   const burger = document.getElementById('burger');
   const navLinks = document.getElementById('navLinks');
-  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  burger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    document.getElementById('navbar').classList.toggle('menu-open');
+  });
   // Página activa en nav
   document.querySelectorAll(".nav-links a").forEach(a => {
     const href = a.getAttribute("href");
@@ -115,7 +118,7 @@
       if (target === current) a.classList.add("active");
     }
   });
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { navLinks.classList.remove('open'); document.getElementById('navbar').classList.remove('menu-open'); }));
 </script>
 </body>
 </html>
