@@ -501,8 +501,11 @@
   // Burger
   const burger = document.getElementById('burger');
   const navLinks = document.getElementById('navLinks');
-  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+  burger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    document.getElementById('navbar').classList.toggle('menu-open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { navLinks.classList.remove('open'); document.getElementById('navbar').classList.remove('menu-open'); }));
 
   // Fade in amenities
   const io = new IntersectionObserver(e => e.forEach(x => {
