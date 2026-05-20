@@ -305,7 +305,8 @@ footer {
     display: none; flex-direction: column;
     position: fixed; inset: 0;
     background: var(--pine);
-    justify-content: center; align-items: center;
+    justify-content: flex-start; align-items: center;
+    padding-top: 5rem;
     gap: 2rem; z-index: 9999;
   }
   .nav-links.open { display: flex; }
