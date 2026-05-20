@@ -242,7 +242,7 @@ a { text-decoration: none; color: inherit; }
 
 /* ── CTA SECTION ── */
 .cta-section {
-  background: var(--pine);
+  background: #0a1a10;
   padding: 6rem 3rem; text-align: center;
 }
 .cta-section h2 {
