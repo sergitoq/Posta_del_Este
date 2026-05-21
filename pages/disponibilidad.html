@@ -191,7 +191,7 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
       WhatsApp &#8212; Sergio
     </a>
   </div>
-  <p class='version'>Versi&#243;n 21/May/26 10:24</p>
+  <p class='version'>Versi&#243;n 21/May/26 13:30</p>
 </main>
 <footer>
   <div class='footer-brand'>Posta del Este</div>
@@ -222,7 +222,7 @@ function actualizarModal(){
   var total=totalPersonas(),error='';
   document.getElementById('total-display').textContent=total+' / 6';
   document.getElementById('total-bar').classList.toggle('over',total>6);
-  if(grupoInvalido())error='Se requiere al menos 1 hijo y 1 adulto/pareja/abuelo.';
+  if(grupoInvalido())error='Se requiere al menos 1 pareja/adulto/abuelo y un hijo.';
   else if(total>6)error='El m\u00e1ximo es 6 personas en total.';
   var errEl=document.getElementById('modal-error');
   errEl.textContent=error;errEl.classList.toggle('visible',error!=='');
