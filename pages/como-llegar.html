@@ -9,6 +9,46 @@
   <link rel="stylesheet" href="../style.css">
   <style>
     .nav-links a.active { color: #fff; background: rgba(255,255,255,0.18); font-weight: 600; }
+    .transport-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .transport-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 1.75rem;
+    }
+    .transport-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      margin: 0 0 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .transport-card p {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+      opacity: 0.88;
+    }
+    .transport-card p + p { margin-top: 0.75rem; }
+    .address-block {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.9;
+      opacity: 0.88;
+    }
+    .gps-coords {
+      font-family: monospace;
+      font-size: 0.9rem;
+      letter-spacing: 0.03em;
+      margin-top: 0.75rem;
+    }
   </style>
 </head>
 <body>
@@ -42,10 +82,27 @@
 
     <p class="section-eyebrow">Ubicación</p>
     <h2 class="section-title dark">Costa del Este, Buenos Aires</h2>
-    <p class="body-text">Posta del Este está en Costa del Este, partido de La Costa. Zona tranquila, familiar y segura, con acceso por calle asfaltada. Frente a la reserva ecológica.</p>
+    <p class="body-text" style="color:inherit">Posta del Este está en Costa del Este, partido de La Costa. Zona tranquila, familiar y segura, con acceso por calle asfaltada. Frente a la reserva ecológica.</p>
+	
+    <p class="body-text" style="color:inherit">Costa del Este constituye una de las más pintorescas localidades del Partido de La Costa, Provincia de Buenos Aires. Está ubicada en el Kilómetro 333 de la Ruta 11, también conocida como Ruta Interbalnearia, entre Mar del Tuyú y Aguas Verdes.</p>
 
     <div class="info-box">
       <p>📍 A <strong>4 cuadras del mar</strong> (por sendero peatonal asfaltado a través de la reserva) y a <strong>6 cuadras del centro</strong> de Costa del Este.</p>
+    </div>
+
+    <h3 class="sub-title dark" style="margin-top:2.5rem">Dirección</h3>
+    <div class="address-block">
+      <p>
+        Av. Interbalnearia 557 e/ 6 y 7<br>
+        Costa del Este (7108)<br>
+        Partido de La Costa<br>
+        Buenos Aires, Argentina
+      </p>
+      <p class="gps-coords">
+        <strong>GPS</strong><br>
+        Lat: S 36° 37.048'<br>
+        Long: O 56° 41.610'
+      </p>
     </div>
 
     <h3 class="sub-title dark" style="margin-top:2.5rem">Navegar con GPS</h3>
@@ -70,7 +127,31 @@
     </div>
 
     <div class="info-box">
-      <p>⚠️ <strong>Pendiente:</strong> reemplazá el mapa de arriba con el embed de tu dirección exacta desde Google Maps → tu pin → Compartir → Insertar un mapa.</p>
+      <p>⚠️ <strong>Pendiente:</strong> Reemplazá el mapa de arriba con el embed de tu dirección exacta desde Google Maps → tu pin → Compartir → Insertar un mapa.</p>
+    </div>
+
+    <h3 class="sub-title dark" style="margin-top:2.5rem">Cómo llegar</h3>
+
+    <div class="transport-grid">
+
+      <div class="transport-card">
+        <h4>🚗 En automóvil</h4>
+        <p>Tomá la Ruta 2 hasta el Km 206 (Dolores). Subí el puente y tomá la Ruta 63 hacia la Costa Atlántica. Luego de 30 km (Esquina de Crotto) encontrarás la Ruta 11. Doblá a la derecha; después del peaje, en el Km 250 (rotonda de Conesa) doblá a la izquierda hacia el Partido de la Costa. Seguí hasta el Km 333 y encontrarás el bulevar de acceso a Costa del Este.</p>
+        <p>Una vez ingresado, en la bifurcación tomá a la derecha siguiendo el asfalto. Cuando éste termina, doblá a la izquierda hasta la entrada a la Reserva Ecológica; de ahí, media cuadra a la derecha se encuentra Posta del Este.</p>
+      </div>
+
+      <div class="transport-card">
+        <h4>🚌 En micro</h4>
+        <p>Costa del Este no tiene terminal propia, pero varias empresas arriban al Parador de Mar del Tuyú, localidad vecina a 3 km. Entre otras: Rápido Argentino, Rutamar, El Rápido, Plusmar, Telebus, Alvarez Hnos. y Rutatlántica.</p>
+        <p>Desde Mar del Tuyú podés llegar en <strong>remis</strong> (Remis "La 79", Tel. 02246 43-4363 — en calle 79 y 2, a 6 cuadras de la terminal) o en el <strong>Colectivo 500</strong> (indicar: Interbalnearia y 6; acepta SUBE o efectivo).</p>
+      </div>
+
+      <div class="transport-card">
+        <h4>✈️ En avión</h4>
+        <p>Durante la temporada de verano, <strong>LADE</strong> opera vuelos desde el Aeroparque Jorge Newbery hasta el Aeródromo de Santa Teresita.</p>
+        <p>Desde Santa Teresita podés llegar a Costa del Este en remis (7 km) o en el Colectivo 500, que recorre todos los balnearios.</p>
+      </div>
+
     </div>
 
   </div>
@@ -109,7 +190,6 @@
     navLinks.classList.toggle('open');
     document.getElementById('navbar').classList.toggle('menu-open');
   });
-  // Página activa en nav
   document.querySelectorAll(".nav-links a").forEach(a => {
     const href = a.getAttribute("href");
     if (href && !href.startsWith("#")) {
