@@ -72,7 +72,6 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
 </nav>
 <header class='page-hero'>
   <div class='page-hero-content'>
-    <p class='eyebrow'>Temporadas 2026 / 2027</p>
     <h1>Disponibilidad</h1>
     <p>Alquileres de s&#225;bado a s&#225;bado en temporada alta. Fines de semana largo en temporada baja.</p>
   </div>
@@ -97,6 +96,9 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
   </div>
 </div>
 <main class='content'>
+  <div style='height:3rem'></div>
+  <div class='temporada'><h2>Temporada Alta 2026 / 27:</h2>
+  </div>
     <table><thead><tr>
       <th style='width:30%'>Per&#237;odo</th>
       <th style='width:30%'>Fechas</th>
@@ -152,6 +154,9 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
         <td class='disponible'><span class='badge-vacio'></span></td>
         <td class='disponible'><span class='badge-disp' data-periodo='4a semana Mar' data-fecha='Sáb 20/03 al Sáb 27/03' data-casa='Casa Fondo'>Disponible</span></td></tr>
     </tbody></table>
+  <div style='height:3rem'></div>
+  <div class='temporada'><h2>Temporada Baja 2026:</h2>
+  </div>
     <table><thead><tr>
       <th style='width:30%'>Per&#237;odo</th>
       <th style='width:30%'>Fechas</th>
@@ -191,7 +196,7 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
       WhatsApp &#8212; Sergio
     </a>
   </div>
-  <p class='version'>Versi&#243;n 21/May/26 13:30</p>
+  <p class='version'>Versi&#243;n 21/May/26 15:26</p>
 </main>
 <footer>
   <div class='footer-brand'>Posta del Este</div>
@@ -252,16 +257,17 @@ function cerrarModal(){document.getElementById('consulta-overlay').classList.rem
 function enviarWA(){
   var lineas=[];
   lineas.push('Hola Sergio, buen d\u00eda!');
+  lineas.push('');
   lineas.push('Consulto disponibilidad para:');
-  lineas.push('\u2022 Per\u00edodo: '+modalData.periodo+' - '+modalData.fecha);
-  lineas.push('\u2022 Casa: '+modalData.casa);
+  lineas.push('\u2022 '+modalData.periodo+' - '+modalData.fecha);
+  lineas.push('\u2022 '+modalData.casa);
   var personas=[];
   if(contadores.pareja>0)personas.push('1 pareja');
   if(contadores.adultos>0)personas.push(contadores.adultos+' adulto(s)');
   if(contadores.abuelos>0)personas.push(contadores.abuelos+' abuelo(s)');
   if(contadores.hijomay>0)personas.push(contadores.hijomay+' hijo(s) mayores de 12');
   if(contadores.hijomen>0)personas.push(contadores.hijomen+' hijo(s) menores de 12');
-  lineas.push('\u2022 Composici\u00f3n: '+personas.join(', '));
+  lineas.push('\u2022 '+personas.join(', '));
   lineas.push('\u2022 Total: '+totalPersonas()+' personas');
   lineas.push('');lineas.push('Aguardo tu respuesta. Gracias!');
   cerrarModal();
