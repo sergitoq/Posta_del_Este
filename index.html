@@ -409,10 +409,11 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; position: fixed; inset: 0; background: var(--pine); flex-direction: column; justify-content: center; align-items: center; gap: 2rem; z-index: 99; }
+      .nav-links { display: none; flex-direction: column; position: fixed; inset: 0; background: var(--pine); justify-content: flex-start; align-items: center; padding-top: 5rem; gap: 2rem; z-index: 9999; }
       .nav-links.open { display: flex; }
-      .nav-links a { font-size: 1.2rem; }
-      .burger { display: flex; z-index: 101; }
+      .nav-links a { font-size: 1.2rem; color: rgba(255,255,255,0.85); }
+      .burger { display: flex; z-index: 10000; }
+      #navbar.menu-open { background: transparent !important; backdrop-filter: none !important; box-shadow: none !important; }
       .hero-content { padding: 0 1.5rem 4rem; }
       .intro-inner { grid-template-columns: 1fr; gap: 2.5rem; }
       .intro-img-wrap img { height: 320px; }
@@ -720,8 +721,14 @@
     // Burger
     const burger = document.getElementById('burger');
     const navLinks = document.getElementById('navLinks');
-    burger.addEventListener('click', () => navLinks.classList.toggle('open'));
-    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+    burger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      navbar.classList.toggle('menu-open');
+    });
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navbar.classList.remove('menu-open');
+    }));
 
     // Fade in on scroll
     const io = new IntersectionObserver(entries => {
