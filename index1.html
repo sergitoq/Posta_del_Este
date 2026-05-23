@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<link rel="canonical" href="https://postadeleste.com.ar" />
+	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Posta del Este — Alquiler en Costa del Este</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Outfit', sans-serif; background: var(--dark); color: var(--white); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center;
+      padding: 1rem 2rem;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.55), transparent);
+      transition: background 0.4s;
+    }
+    #navbar.solid { background: rgba(14,35,24,0.97); backdrop-filter: blur(10px); }
+    .nav-brand {
+      margin-right: auto;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      letter-spacing: 0.02em;
+      color: var(--white);
+    }
+    .nav-links { display: flex; gap: 0.25rem; align-items: center; list-style: none; margin-left: auto; flex-shrink: 0; }
+    .nav-links a {
+      color: rgba(255,255,255,0.8); font-size: 0.82rem; font-weight: 400;
+      padding: 0.4rem 0.65rem; border-radius: 2rem;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.12); }
+    .nav-links .cta {
+      background: var(--sunset); color: #fff !important;
+      padding: 0.5rem 1.25rem !important; font-weight: 600;
+    }
+    .nav-links .cta:hover { background: var(--sunset2) !important; }
+    .nav-links a.active { color: #fff; background: rgba(255,255,255,0.18); font-weight: 600; }
+    .burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+    .burger span { width: 22px; height: 2px; background: white; display: block; }
+
+    /* ── HERO ── */
+    .hero {
+      height: 100vh; min-height: 600px;
+      position: relative; display: flex; align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero-video-bg {
+      position: absolute; inset: 0;
+      background:
+        url('fotos/inicio/inicio-hero.jpg') center/cover no-repeat;
+      transform: scale(1.05);
+      animation: slowzoom 20s ease-in-out infinite alternate;
+    }
+    @keyframes slowzoom { from { transform: scale(1.05); } to { transform: scale(1.12); } }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(14,35,24,0.95) 0%,
+        rgba(14,35,24,0.4) 40%,
+        rgba(0,0,0,0.15) 100%
+      );
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 3rem 5rem;
+      max-width: 780px;
+      animation: fadeup 1s ease both;
+    }
+    @keyframes fadeup {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      color: rgba(255,255,255,0.9); font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.4rem 1rem; border-radius: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge::before { content: '●'; color: #4ade80; font-size: 0.6rem; }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 8vw, 6.5rem);
+      line-height: 1;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      color: #fff;
+    }
+    .hero-title em { font-style: italic; color: #7ed4e8; }
+    .hero-sub {
+      font-size: 1.1rem; color: rgba(255,255,255,0.7);
+      max-width: 520px; line-height: 1.7; margin-bottom: 2.5rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-hero-primary {
+      background: var(--sunset); color: #fff;
+      padding: 0.9rem 2rem; border-radius: 0.4rem;
+      font-size: 0.95rem; font-weight: 600;
+      transition: all 0.25s;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-hero-primary:hover { background: var(--sunset2); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(224,123,58,0.4); }
+    .btn-hero-secondary {
+      background: rgba(255,255,255,0.1); color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 0.9rem 2rem; border-radius: 0.4rem;
+      font-size: 0.95rem; font-weight: 500;
+      backdrop-filter: blur(6px);
+      transition: all 0.25s;
+    }
+    .btn-hero-secondary:hover { background: rgba(255,255,255,0.18); transform: translateY(-2px); }
+    .hero-scroll-hint {
+      position: absolute; bottom: 2rem; right: 3rem; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      color: rgba(255,255,255,0.4); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4)); }
+
+    /* ── STRIP ── */
+    .strip {
+      background: var(--ocean2);
+      display: flex; overflow-x: auto;
+    }
+    .strip-item {
+      flex: 1; min-width: 160px;
+      padding: 1.5rem 2rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+    .strip-item:last-child { border-right: none; }
+    .strip-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem; font-weight: 700; color: #7ed4e8;
+      line-height: 1;
+    }
+    .strip-label { font-size: 0.72rem; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* ── INTRO ── */
+    .intro {
+      background: var(--sand);
+      padding: 7rem 3rem;
+    }
+    .intro-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: center;
+    }
+    .intro-img-wrap {
+      position: relative; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+    }
+    .intro-img-wrap img { width: 100%; height: 480px; object-fit: cover; display: block; }
+    .intro-img-badge {
+      position: absolute; bottom: 1.5rem; left: 1.5rem;
+      background: rgba(14,35,24,0.88); backdrop-filter: blur(8px);
+      color: #fff; padding: 0.75rem 1.25rem; border-radius: 8px;
+      font-size: 0.82rem; line-height: 1.5;
+    }
+    .intro-img-badge strong { display: block; font-size: 1rem; margin-bottom: 0.1rem; }
+    .intro-text-col {}
+    .section-eyebrow {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--ocean);
+      margin-bottom: 1rem;
+    }
+    .intro-text-col h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      color: var(--dark); line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .intro-text-col h2 em { font-style: italic; color: var(--pine2); }
+    .intro-text-col p {
+      color: #555; font-size: 1rem; line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .intro-features {
+      display: flex; flex-direction: column; gap: 0.75rem;
+      margin-top: 2rem;
+    }
+    .intro-feat {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.9rem; color: var(--dark); font-weight: 500;
+    }
+    .feat-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sunset); flex-shrink: 0; }
+
+    /* ── CASAS ── */
+    .casas { background: var(--dark); padding: 7rem 3rem; }
+    .casas-inner { max-width: 1100px; margin: 0 auto; }
+    .section-header { margin-bottom: 3.5rem; }
+    .section-header .eyebrow { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #7ed4e8; margin-bottom: 0.75rem; }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem); color: #fff; line-height: 1.15;
+    }
+    .casas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .casa-card {
+      border-radius: 12px; overflow: hidden;
+      background: #1a2a20;
+      transition: transform 0.35s, box-shadow 0.35s;
+      display: block;
+    }
+    .casa-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+    .casa-img {
+      height: 300px; position: relative; overflow: hidden;
+    }
+    .casa-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+    .casa-card:hover .casa-img img { transform: scale(1.06); }
+    .casa-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(14,35,24,0.85) 0%, transparent 50%);
+    }
+    .casa-img-tag {
+      position: absolute; top: 1rem; left: 1rem;
+      background: var(--sunset); color: #fff;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.3rem 0.8rem; border-radius: 2rem;
+    }
+    .casa-body { padding: 2rem; }
+    .casa-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; color: #fff; margin-bottom: 0.75rem;
+    }
+    .casa-body p { color: rgba(255,255,255,0.55); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .casa-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .pill {
+      background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.7);
+      font-size: 0.75rem; padding: 0.3rem 0.75rem; border-radius: 2rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .casa-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      color: #7ed4e8; font-size: 0.88rem; font-weight: 600;
+      transition: gap 0.2s;
+    }
+    .casa-card:hover .casa-link { gap: 0.7rem; }
+
+    /* ── GALLERY ── */
+    .gallery { background: var(--pine); padding: 5rem 0; overflow: hidden; }
+    .gallery-track {
+      display: flex; gap: 1rem; padding: 0 3rem;
+      animation: slide 30s linear infinite;
+      width: max-content;
+    }
+    .gallery:hover .gallery-track { animation-play-state: paused; }
+    @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .gallery-item {
+      width: 320px; height: 220px; border-radius: 10px;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-label {
+      text-align: center; color: rgba(255,255,255,0.45);
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 2rem; padding: 0 3rem;
+    }
+
+    /* ── HIGHLIGHTS ── */
+    .highlights { background: var(--sand); padding: 7rem 3rem; }
+    .highlights-inner { max-width: 1100px; margin: 0 auto; }
+    .highlights-inner .section-eyebrow { color: var(--ocean); }
+    .highlights-inner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem); color: var(--dark);
+      margin-bottom: 3rem;
+    }
+    .hl-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .hl-card {
+      background: #fff; border-radius: 12px; padding: 2rem 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .hl-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
+    .hl-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.25rem;
+    }
+    .hl-icon.green { background: #e8f5ee; }
+    .hl-icon.blue  { background: #e3f2f8; }
+    .hl-icon.amber { background: #fef3e8; }
+    .hl-icon.teal  { background: #e3f5f2; }
+    .hl-card h3 { font-size: 1rem; font-weight: 600; color: var(--dark); margin-bottom: 0.5rem; }
+    .hl-card p { font-size: 0.85rem; color: #777; line-height: 1.65; }
+
+    /* ── DISPO ── */
+    .dispo {
+      background: var(--ocean2); padding: 6rem 3rem;
+      position: relative; overflow: hidden;
+    }
+    .dispo::before {
+      content: '';
+      position: absolute; top: -80px; right: -80px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    .dispo-inner { max-width: 700px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+    .dispo-inner .eyebrow { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #7ed4e8; margin-bottom: 1rem; }
+    .dispo-inner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem); color: #fff; margin-bottom: 1rem;
+    }
+    .dispo-inner p { color: rgba(255,255,255,0.65); font-size: 1rem; margin-bottom: 2.5rem; }
+    .dispo-estado {
+      display: inline-block;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      color: #fff; padding: 0.75rem 1.5rem; border-radius: 2rem;
+      font-size: 0.95rem; font-weight: 500; margin-bottom: 2.5rem;
+    }
+
+    /* ── CONDICIONES ── */
+    .condiciones { background: var(--dark); padding: 7rem 3rem; }
+    .condiciones-inner { max-width: 1100px; margin: 0 auto; }
+    .condiciones-inner .eyebrow { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #7ed4e8; margin-bottom: 0.75rem; }
+    .condiciones-inner > h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem); color: #fff; margin-bottom: 3rem;
+    }
+    .cond-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .cond-card { background: #1a2a20; border-radius: 12px; padding: 2rem; border-top: 3px solid; }
+    .cond-card.ocean { border-color: #7ed4e8; }
+    .cond-card.sunset { border-color: var(--sunset); }
+    .cond-card.pine   { border-color: #4ade80; }
+    .cond-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; color: #fff; margin-bottom: 0.3rem;
+    }
+    .cond-card .sub { font-size: 0.75rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.25rem; }
+    .cond-card li {
+      font-size: 0.85rem; color: rgba(255,255,255,0.6);
+      padding: 0.45rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; gap: 0.5rem;
+    }
+    .cond-card li:last-child { border-bottom: none; }
+    .cond-card li::before { content: '—'; color: rgba(255,255,255,0.2); flex-shrink: 0; }
+
+    /* ── CONTACTO ── */
+    .contacto {
+      background: var(--sand); padding: 7rem 3rem;
+    }
+    .contacto-inner { max-width: 1100px; margin: 0 auto; }
+    .contacto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .contacto-left .eyebrow { color: var(--ocean); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 1rem; }
+    .contacto-left h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem); color: var(--dark); margin-bottom: 1rem;
+    }
+    .contacto-left p { color: #666; font-size: 1rem; line-height: 1.75; margin-bottom: 0.75rem; }
+    .contacto-right { display: flex; flex-direction: column; gap: 1rem; }
+    .btn-wa {
+      display: flex; align-items: center; gap: 1rem;
+      background: #25D366; color: #fff;
+      padding: 1.25rem 2rem; border-radius: 12px;
+      font-size: 1rem; font-weight: 600;
+      transition: all 0.25s;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.25);
+    }
+    .btn-wa:hover { background: #1ebe5d; transform: translateY(-3px); box-shadow: 0 10px 35px rgba(37,211,102,0.4); }
+    .btn-wa-icon { width: 44px; height: 44px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .btn-wa-text strong { display: block; font-size: 1rem; }
+    .btn-wa-text span { font-size: 0.8rem; opacity: 0.75; font-weight: 400; }
+    .btn-tel {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--ocean2); color: #fff;
+      padding: 1.25rem 2rem; border-radius: 12px;
+      font-size: 1rem; font-weight: 600;
+      transition: all 0.25s;
+    }
+    .btn-tel:hover { background: var(--ocean); transform: translateY(-3px); }
+    .maps-row { display: flex; gap: 1rem; }
+    .btn-map {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: #fff; color: var(--dark);
+      padding: 1rem; border-radius: 10px;
+      font-size: 0.85rem; font-weight: 500;
+      border: 1px solid #ddd;
+      transition: all 0.2s;
+    }
+    .btn-map:hover { background: var(--sand2); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--pine); padding: 3.5rem 3rem;
+      display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+    }
+    .footer-brand {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.8rem; color: #fff;
+    }
+    .footer-nav { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+    .footer-nav a { color: rgba(255,255,255,0.45); font-size: 0.82rem; transition: color 0.2s; }
+    .footer-nav a:hover { color: #fff; }
+    .footer-copy { color: rgba(255,255,255,0.25); font-size: 0.75rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; position: fixed; inset: 0; background: var(--pine); flex-direction: column; justify-content: center; align-items: center; gap: 2rem; z-index: 99; }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 1.2rem; }
+      .burger { display: flex; z-index: 101; }
+      .hero-content { padding: 0 1.5rem 4rem; }
+      .intro-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .intro-img-wrap img { height: 320px; }
+      .casas-grid { grid-template-columns: 1fr; }
+      .hl-grid { grid-template-columns: 1fr 1fr; }
+      .cond-grid { grid-template-columns: 1fr; }
+      .contacto-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .intro, .casas, .highlights, .condiciones, .contacto, .dispo { padding: 5rem 1.5rem; }
+    }
+    @media (max-width: 540px) {
+      .hl-grid { grid-template-columns: 1fr; }
+      .strip-item { min-width: 130px; }
+      .maps-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#" class="nav-brand">Posta del Este</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="pages/disponibilidad.html">Disponibilidad</a></li>
+    <li><a href="pages/casa-frente.html">Casa Frente</a></li>
+    <li><a href="pages/casa-fondo.html">Casa Fondo</a></li>
+    <li><a href="pages/alcances.html">Alcances</a></li>
+    <li><a href="pages/como-llegar.html">Como llegar</a></li>
+    <li><a href="pages/entorno.html">Entorno</a></li>
+  </ul>
+    <button class="burger" id="burger"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-video-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Costa del Este · Buenos Aires</div>
+      <h1 class="hero-title">Posta<br><em>del Este</em></h1>
+      <p class="hero-sub">Dos casas frente a la reserva ecológica. Bosque de pinos, 4 cuadras del mar. Para familias que buscan el descanso de verdad.</p>
+      <div class="hero-actions">
+        <a href="#casas" class="btn-hero-primary">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Ver las casas
+        </a>
+        <a href="pages/disponibilidad.html" class="btn-hero-secondary">Consultar disponibilidad</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <div class="scroll-line"></div>
+      <span>scroll</span>
+    </div>
+  </section>
+
+  <!-- STRIP -->
+  <div class="strip">
+    <div class="strip-item"><span class="strip-num">750</span><span class="strip-label">m² de terreno</span></div>
+    <div class="strip-item"><span class="strip-num">2</span><span class="strip-label">casas independientes</span></div>
+    <div class="strip-item"><span class="strip-num">6</span><span class="strip-label">plazas por casa</span></div>
+    <div class="strip-item"><span class="strip-num">4</span><span class="strip-label">cuadras del mar</span></div>
+    <div class="strip-item"><span class="strip-num">0</span><span class="strip-label">comisiones</span></div>
+  </div>
+
+  <!-- INTRO -->
+  <section class="intro">
+    <div class="intro-inner">
+      <div class="intro-img-wrap">
+        <img src="fotos/inicio/inicio-intro.jpg" alt="Bosque de pinos Costa del Este">
+        <div class="intro-img-badge">
+          <strong>🌲 Frente a la reserva</strong>
+          Bosque de pinos · Sendero a la playa
+        </div>
+      </div>
+      <div class="intro-text-col">
+        <p class="section-eyebrow">Sobre el lugar</p>
+        <h2>Un refugio entre<br>pinos <em>y mar</em></h2>
+        <p>Nuestro terreno de 750 m² alberga dos casas completamente independientes, separadas 20 metros entre sí. Cada una tiene su propio acceso, galería y espacio exterior — sin compartir nada con el vecino.</p>
+        <p>El entorno lo dice todo: frente a la reserva ecológica, rodeadas de pinos, con acceso a la playa por sendero peatonal asfaltado a través del bosque.</p>
+        <div class="intro-features">
+          <div class="intro-feat"><div class="feat-dot"></div>Zona tranquila y segura, acceso por asfalto</div>
+          <div class="intro-feat"><div class="feat-dot"></div>4 cuadras del mar · 6 cuadras del centro</div>
+          <div class="intro-feat"><div class="feat-dot"></div>Atendido por sus dueños — sin comisiones</div>
+          <div class="intro-feat"><div class="feat-dot"></div>WiFi 6 fibra óptica en todo el predio</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASAS -->
+  <section class="casas" id="casas">
+    <div class="casas-inner">
+      <div class="section-header">
+        <p class="eyebrow">Las propiedades</p>
+        <h2>Dos casas, un solo predio</h2>
+      </div>
+      <div class="casas-grid">
+        <a href="pages/casa-frente.html" class="casa-card">
+          <div class="casa-img">
+            <img src="fotos/inicio/inicio-casa-frente.jpg" alt="Casa Frente">
+            <div class="casa-img-overlay"></div>
+            <span class="casa-img-tag">Casa Frente</span>
+          </div>
+          <div class="casa-body">
+            <h3>Casa Frente</h3>
+            <p>Dos plantas con living-comedor integrado, chimenea, galería y vistas a la reserva desde el dormitorio principal.</p>
+            <div class="casa-pills">
+              <span class="pill">6 plazas</span>
+              <span class="pill">2 dormitorios</span>
+              <span class="pill">Hogar a leña</span>
+              <span class="pill">Lavavajillas</span>
+              <span class="pill">WiFi 6</span>
+            </div>
+            <span class="casa-link">Ver detalles →</span>
+          </div>
+        </a>
+        <a href="pages/casa-fondo.html" class="casa-card">
+          <div class="casa-img">
+            <img src="fotos/inicio/inicio-casa-fondo.jpg" alt="Casa Fondo">
+            <div class="casa-img-overlay"></div>
+            <span class="casa-img-tag">Casa Fondo</span>
+          </div>
+          <div class="casa-body">
+            <h3>Casa Fondo</h3>
+            <p>Mayor privacidad al fondo del lote. Cortinas blackout eléctricas, alarma con sensores, caja de seguridad y piso radiante.</p>
+            <div class="casa-pills">
+              <span class="pill">6 plazas</span>
+              <span class="pill">Alarma</span>
+              <span class="pill">Blackout eléctrico</span>
+              <span class="pill">Caja fuerte</span>
+              <span class="pill">WiFi 6</span>
+            </div>
+            <span class="casa-link">Ver detalles →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY STRIP -->
+  <section class="gallery">
+    <p class="gallery-label">El entorno · Costa del Este</p>
+    <div class="gallery-track" id="galleryTrack">
+      <div class="gallery-item"><img src="fotos/inicio/inicio-g01.jpg" alt="Playa"></div>
+      <div class="gallery-item"><img src="fotos/inicio/inicio-g02.jpg" alt="Pinos"></div>
+      <div class="gallery-item"><img src="fotos/inicio/inicio-g03.jpg" alt="Casa"></div>
+      <div class="gallery-item"><img src="fotos/inicio/inicio-g04.jpg" alt="Naturaleza"></div>
+      <div class="gallery-item"><img src="fotos/inicio/inicio-g05.jpg" alt="Atardecer"></div>
+      <div class="gallery-item"><img src="fotos/inicio/inicio-g06.jpg" alt="Costa"></div>
+      <!-- duplicado para loop continuo -->
+      <div class="gallery-item"><img src="fotos/inicio/inicio-g01.jpg" alt="Playa"></div>
+      <div class="gallery-item"><img src="fotos/inicio/inicio-g02.jpg" alt="Pinos"></div>
+      <div class="gallery-item"><img src="fotos/inicio/inicio-g03.jpg" alt="Casa"></div>
+      <div class="gallery-item"><img src="fotos/inicio/inicio-g04.jpg" alt="Naturaleza"></div>
+      <div class="gallery-item"><img src="fotos/inicio/inicio-g05.jpg" alt="Atardecer"></div>
+      <div class="gallery-item"><img src="fotos/inicio/inicio-g06.jpg" alt="Costa"></div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS -->
+  <section class="highlights" id="servicios">
+    <div class="highlights-inner">
+      <p class="section-eyebrow">Por qué elegirnos</p>
+      <h2>Todo lo que necesitás,<br>sin lo que no usás</h2>
+      <div class="hl-grid">
+        <div class="hl-card">
+          <div class="hl-icon green">🌲</div>
+          <h3>Reserva ecológica</h3>
+          <p>Frente directo a la reserva. Acceso a la playa a través del bosque por sendero peatonal asfaltado.</p>
+        </div>
+        <div class="hl-card">
+          <div class="hl-icon blue">📡</div>
+          <h3>WiFi 6 · Fibra óptica</h3>
+          <p>Cobertura bibanda en todo el predio. Podés trabajar remotamente o streamear sin cortes.</p>
+        </div>
+        <div class="hl-card">
+          <div class="hl-icon amber">🔒</div>
+          <h3>Seguridad completa</h3>
+          <p>Cámaras 24hs con grabación, alarma con sensores de movimiento y apertura de aberturas.</p>
+        </div>
+        <div class="hl-card">
+          <div class="hl-icon teal">🤝</div>
+          <h3>Sin comisiones</h3>
+          <p>Trato directo con los dueños. Reserva, pago y llegada sin intermediarios ni gastos escondidos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISPONIBILIDAD -->
+  <section class="dispo">
+    <div class="dispo-inner">
+      <p class="eyebrow">Temporadas</p>
+      <h2>¿Cuándo podés venir?</h2>
+      <p>Podés reservar con anticipación. En temporada alta los alquileres son de sábado a sábado. En temporada baja también hacemos fines de semana largo.</p>
+      <a href="pages/disponibilidad.html" class="btn-hero-primary" style="display:inline-flex; margin:0 auto;">
+        Consultar disponibilidad
+      </a>
+    </div>
+  </section>
+
+  <!-- CONDICIONES -->
+  <section class="condiciones" id="condiciones">
+    <div class="condiciones-inner">
+      <p class="eyebrow">Antes de reservar</p>
+      <h2>Condiciones del alquiler</h2>
+      <div class="cond-grid">
+        <div class="cond-card ocean">
+          <h3>Temporada Alta</h3>
+          <p class="sub">1 dic al 31 mar</p>
+          <ul>
+            <li>Sábado a sábado</li>
+            <li>Check-in: sáb 15:00–18:00 hs</li>
+            <li>Check-out: sáb 09:00–11:00 hs</li>
+            <li>Reserva: mínimo 20%</li>
+            <li>Garantía: ~20% al ingresar</li>
+          </ul>
+        </div>
+        <div class="cond-card sunset">
+          <h3>Fin de semana largo</h3>
+          <p class="sub">Temporada baja · 31 mar al 1 dic</p>
+          <ul>
+            <li>Check-in: viernes/último hábil 19:00–21:00</li>
+            <li>Check-out: domingo/último feriado 17:00–19:00</li>
+            <li>Reserva: mínimo 50%</li>
+            <li>Garantía: ~40% al ingresar</li>
+          </ul>
+        </div>
+        <div class="cond-card pine">
+          <h3>Admisión</h3>
+          <p class="sub">Reglas de convivencia</p>
+          <ul>
+            <li>Solo familia nuclear conviviente</li>
+            <li>No parejas ni grupos de jóvenes</li>
+            <li>No mascotas</li>
+            <li>No cuatriciclos</li>
+            <li>No fiestas ni reuniones</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contacto" id="contacto">
+    <div class="contacto-inner">
+      <div class="contacto-grid">
+        <div class="contacto-left">
+          <p class="eyebrow">Contacto</p>
+          <h2>Hablemos antes<br>de reservar</h2>
+          <p>Escribinos por WhatsApp con el período que te interesa y la cantidad de personas. Te respondemos rápido.</p>
+          <p>El pago se hace directo con los dueños — sin plataformas, sin comisiones.</p>
+        </div>
+        <div class="contacto-right">
+          <a href="https://wa.me/5491167899975?text=Hola%20Sergio%2C%20buen%20d%C3%ADa!%20Tengo%20inter%C3%A9s%20en%20alquilar%20en%20Costa%20del%20Este%2C%20para%20el%20per%C3%ADodo%20y%20cantidad%20de%20personas%20que%20detallo%3A" class="btn-wa" target="_blank">
+            <div class="btn-wa-icon">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <div class="btn-wa-text">
+              <strong>WhatsApp — Sergio</strong>
+              <span>+54 9 11 6789-9975</span>
+            </div>
+          </a>
+          <a href="tel:01167899975" class="btn-tel">
+            📞 &nbsp;<strong>11 6789-9975</strong>&nbsp;<span style="font-weight:300; opacity:0.6">(solo desde móvil)</span>
+          </a>
+          <div class="maps-row">
+            <a href="pages/como-llegar.html" class="btn-map">🗺️ Cómo llegar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">Posta del Este</div>
+    <nav class="footer-nav">
+    <a href="index.html">Inicio</a>
+    <a href="pages/disponibilidad.html">Disponibilidad</a>
+    <a href="pages/casa-frente.html">Casa Frente</a>
+    <a href="pages/casa-fondo.html">Casa Fondo</a>
+    <a href="pages/alcances.html">Alcances</a>
+    <a href="pages/como-llegar.html">Como llegar</a>
+    <a href="pages/entorno.html">Entorno</a>
+  </nav>
+    <p class="footer-copy">© 2010–2026 Posta del Este · Costa del Este, Buenos Aires</p>
+  </footer>
+
+  <script>
+    // Navbar
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('solid', scrollY > 80));
+
+    // Página activa en nav
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      const href = a.getAttribute('href');
+      if (href && !href.startsWith('#')) {
+        const current = location.pathname.split('/').pop() || 'index.html';
+        const target = href.split('/').pop();
+        if (target === current) a.classList.add('active');
+      }
+    });
+
+    // Burger
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+    burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    // Fade in on scroll
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }});
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.hl-card, .casa-card, .cond-card, .stat, .intro-feat').forEach(el => {
+      el.style.cssText += 'opacity:0;transform:translateY(24px);transition:opacity 0.55s ease,transform 0.55s ease';
+      io.observe(el);
+    });
+  </script>
+</body>
+</html>
