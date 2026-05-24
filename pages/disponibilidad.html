@@ -56,6 +56,7 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
 .btn-cancelar{flex:1;padding:0.85rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:10px;color:rgba(255,255,255,0.6);font-family:'Outfit',sans-serif;font-size:0.9rem;cursor:pointer;}
 .btn-wa-modal{flex:2;padding:0.85rem;background:#25D366;border:none;border-radius:10px;color:#fff;font-family:'Outfit',sans-serif;font-size:0.9rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.5rem;}
 .btn-wa-modal:hover{background:#1ebe5d;}.btn-wa-modal:disabled{background:rgba(255,255,255,0.1);cursor:default;color:rgba(255,255,255,0.3);}
+@media(max-width:480px){.personas-grid{grid-template-columns:1fr 1fr;}.persona-item{padding:0.4rem 0.5rem;}.persona-item label{font-size:0.75rem;}}
 </style></head>
 <body>
 <nav id='navbar'>
@@ -198,7 +199,7 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
       WhatsApp &#8212; Sergio
     </a>
   </div>
-  <p class='version'>Versi&#243;n 24/May/26 11:03</p>
+  <p class='version'>Versi&#243;n 24/May/26 11:09</p>
 </main>
 <footer>
   <div class='footer-brand'>Posta del Este</div>
@@ -249,14 +250,13 @@ function cambiar(key,delta){
   actualizarModal();
 }
 function abrirConsulta(periodo,fecha,casa){
-  document.body.style.overflowX='visible';
   modalData={periodo:periodo,fecha:fecha,casa:casa};
   mkeys.forEach(function(k){contadores[k]=0;document.getElementById('cnt-'+k).textContent='0';});
   document.getElementById('modal-periodo').textContent=periodo+' \u00b7 '+fecha+' \u00b7 '+casa;
   document.getElementById('consulta-overlay').classList.add('open');
   actualizarModal();
 }
-function cerrarModal(){document.body.style.overflowX='hidden';document.getElementById('consulta-overlay').classList.remove('open');}
+function cerrarModal(){document.getElementById('consulta-overlay').classList.remove('open');}
 function enviarWA(){
   var lineas=[];
   lineas.push('Hola Sergio, buen d\u00eda!');
