@@ -35,8 +35,7 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
 .btn-wa:hover{background:#1ebe5d;transform:translateY(-2px);}
 .version{color:rgba(255,255,255,0.2);font-size:0.7rem;text-align:right;margin-top:1rem;}
 @media(max-width:480px){table{table-layout:fixed;}thead th:nth-child(1){width:30%;}thead th:nth-child(2){width:30%;}thead th:nth-child(3),thead th:nth-child(4){width:20%;}thead th{font-size:0.6rem;padding:0.5rem 0.3rem;letter-spacing:0.05em;}tbody td{font-size:0.75rem;padding:0.5rem 0.3rem;}.badge-disp,.badge-cons{font-size:0.62rem;padding:0.2rem 0.35rem;}}
-#consulta-overlay{display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.75);padding:1rem;}
-#consulta-overlay.open{display:flex;align-items:center;justify-content:center;}
+#consulta-overlay{display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.75);align-items:center;justify-content:center;padding:1rem;}
 #consulta-overlay.open{display:flex;}
 #consulta-modal{background:#1a2a20;border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:2rem;width:100%;max-width:420px;max-height:90vh;overflow-y:auto;}
 #consulta-modal h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:#fff;margin-bottom:0.25rem;}
@@ -199,7 +198,7 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
       WhatsApp &#8212; Sergio
     </a>
   </div>
-  <p class='version'>Versi&#243;n 24/May/26 10:47</p>
+  <p class='version'>Versi&#243;n 24/May/26 11:03</p>
 </main>
 <footer>
   <div class='footer-brand'>Posta del Este</div>
@@ -250,13 +249,14 @@ function cambiar(key,delta){
   actualizarModal();
 }
 function abrirConsulta(periodo,fecha,casa){
+  document.body.style.overflowX='visible';
   modalData={periodo:periodo,fecha:fecha,casa:casa};
   mkeys.forEach(function(k){contadores[k]=0;document.getElementById('cnt-'+k).textContent='0';});
   document.getElementById('modal-periodo').textContent=periodo+' \u00b7 '+fecha+' \u00b7 '+casa;
   document.getElementById('consulta-overlay').classList.add('open');
   actualizarModal();
 }
-function cerrarModal(){document.getElementById('consulta-overlay').classList.remove('open');}
+function cerrarModal(){document.body.style.overflowX='hidden';document.getElementById('consulta-overlay').classList.remove('open');}
 function enviarWA(){
   var lineas=[];
   lineas.push('Hola Sergio, buen d\u00eda!');
