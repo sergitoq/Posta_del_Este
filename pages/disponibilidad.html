@@ -35,9 +35,10 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
 .btn-wa:hover{background:#1ebe5d;transform:translateY(-2px);}
 .version{color:rgba(255,255,255,0.2);font-size:0.7rem;text-align:right;margin-top:1rem;}
 @media(max-width:480px){table{table-layout:fixed;}thead th:nth-child(1){width:30%;}thead th:nth-child(2){width:30%;}thead th:nth-child(3),thead th:nth-child(4){width:20%;}thead th{font-size:0.6rem;padding:0.5rem 0.3rem;letter-spacing:0.05em;}tbody td{font-size:0.75rem;padding:0.5rem 0.3rem;}.badge-disp,.badge-cons{font-size:0.62rem;padding:0.2rem 0.35rem;}}
-#consulta-overlay{display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.75);align-items:center;justify-content:center;padding:1rem;}
+#consulta-overlay{display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.75);padding:1rem;}
+#consulta-overlay.open{display:flex;align-items:center;justify-content:center;}
 #consulta-overlay.open{display:flex;}
-#consulta-modal{box-sizing:border-box;background:#1a2a20;border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:2rem;width:calc(100% - 2rem);max-width:420px;max-height:85vh;overflow-y:auto;margin:auto;}
+#consulta-modal{background:#1a2a20;border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:2rem;width:100%;max-width:420px;max-height:90vh;overflow-y:auto;}
 #consulta-modal h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:#fff;margin-bottom:0.25rem;}
 .modal-periodo{font-size:0.8rem;color:#7ed4e8;margin-bottom:1.5rem;}
 .personas-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.25rem;}
@@ -198,7 +199,7 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
       WhatsApp &#8212; Sergio
     </a>
   </div>
-  <p class='version'>Versi&#243;n 24/May/26 10:41</p>
+  <p class='version'>Versi&#243;n 24/May/26 10:47</p>
 </main>
 <footer>
   <div class='footer-brand'>Posta del Este</div>
