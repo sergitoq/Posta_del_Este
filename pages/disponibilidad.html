@@ -28,11 +28,15 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
 .badge-cons{display:inline-block;background:#3a2a10;color:#f0a742;font-size:0.75rem;font-weight:600;padding:0.25rem 0.75rem;border-radius:2rem;border:1px solid rgba(240,167,66,0.3);}
 .badge-vacio{display:inline-block;width:20px;height:2px;background:rgba(255,255,255,0.1);border-radius:2px;}
 .temporada{margin-bottom:4rem;}.temporada h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:1.5rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(255,255,255,0.1);}
-.cta-box{background:#1a2a20;border-radius:12px;padding:2.5rem;text-align:center;margin-top:2rem;}
-.cta-box h3{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;margin-bottom:0.75rem;}
-.cta-box p{color:rgba(255,255,255,0.55);margin-bottom:2rem;}
-.btn-wa{display:inline-flex;align-items:center;gap:0.75rem;background:#25D366;color:#fff;padding:1rem 2rem;border-radius:10px;font-family:'Outfit',sans-serif;font-size:1rem;font-weight:600;transition:all .25s;}
+.cta-box{max-width:900px;margin:2rem auto 0;padding:0;}
+.cta-box-inner{background:#2d5c43;border-radius:16px;padding:3rem 2.5rem;text-align:center;}
+.cta-box h3{font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:0.75rem;}
+.cta-box p{color:rgba(255,255,255,0.55);font-size:0.95rem;margin-bottom:2rem;}
+.cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.btn-wa{display:inline-flex;align-items:center;gap:0.5rem;background:#25D366;color:#fff;padding:0.9rem 2rem;border-radius:0.4rem;font-family:'Outfit',sans-serif;font-size:0.95rem;font-weight:600;transition:all .25s;text-decoration:none;}
 .btn-wa:hover{background:#1ebe5d;transform:translateY(-2px);}
+.btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.25);padding:0.9rem 2rem;border-radius:0.4rem;font-family:'Outfit',sans-serif;font-size:0.95rem;font-weight:500;transition:all .25s;text-decoration:none;}
+.btn-secondary:hover{background:rgba(255,255,255,0.18);transform:translateY(-2px);}
 .version{color:rgba(255,255,255,0.2);font-size:0.7rem;text-align:right;margin-top:1rem;}
 @media(max-width:480px){table{table-layout:fixed;}thead th:nth-child(1){width:30%;}thead th:nth-child(2){width:30%;}thead th:nth-child(3),thead th:nth-child(4){width:20%;}thead th{font-size:0.6rem;padding:0.5rem 0.3rem;letter-spacing:0.05em;}tbody td{font-size:0.75rem;padding:0.5rem 0.3rem;}.badge-disp,.badge-cons{font-size:0.62rem;padding:0.2rem 0.35rem;}}
 #consulta-overlay{display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.75);align-items:center;justify-content:center;padding:1rem;}
@@ -192,14 +196,16 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
         <td class='disponible'><span class='badge-disp' data-periodo='Noche Buena / Navidad' data-fecha='Jue 24/12 al Dom 27/12' data-casa='Casa Fondo'>Disponible</span></td></tr>
     </tbody></table>
   <div class='cta-box'>
-    <h3>&#191;Te interesa alguna fecha?</h3>
-    <p>Toc&#225; cualquier badge <strong style='color:#4ade80'>Disponible</strong> y completá los datos para consultar.</p>
-    <a href='https://wa.me/5491167899975?text=Hola%20Sergio%2C%20buen%20d%C3%ADa%21%0AConsulto%20para%20alquilar%20en%20Costa%20del%20Este.%0ATe%20detallo%20el%20per%C3%ADodo%20y%20cantidad%20de%20personas%3A' class='btn-wa' target='_blank'>
-      <svg viewBox='0 0 24 24' width='22' height='22' fill='white'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347'/></svg>
-      WhatsApp &#8212; Sergio
-    </a>
+    <div class='cta-box-inner'>
+      <h3>&#191;Te interesa alguna fecha?</h3>
+      <p>Toc&#225; cualquier badge <strong style='color:#4ade80'>Disponible</strong> y complet&#225; los datos para consultar.</p>
+      <div class='cta-row'>
+        <a href='https://wa.me/5491167899975?text=Hola%20Sergio%2C%20buen%20d%C3%ADa%21%0AConsulto%20para%20alquilar%20en%20Costa%20del%20Este.%0ATe%20detallo%20el%20per%C3%ADodo%20y%20cantidad%20de%20personas%3A' class='btn-wa' target='_blank'><svg viewBox='0 0 24 24' width='22' height='22' fill='white'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/></svg> WhatsApp &#8212; Consultar</a>
+        <a href='../index.html#contacto' class='btn-secondary'>Ver todas las formas de contacto</a>
+      </div>
+    </div>
   </div>
-  <p class='version'>Versi&#243;n 24/May/26 11:19</p>
+  <p class='version'>Versi&#243;n 25/May/26 09:56</p>
 </main>
 <footer>
   <div class='footer-brand'>Posta del Este</div>
@@ -230,7 +236,7 @@ function actualizarModal(){
   var total=totalPersonas(),error='';
   document.getElementById('total-display').textContent=total+' / 6';
   document.getElementById('total-bar').classList.toggle('over',total>6);
-  if(grupoInvalido())error='Se requiere al menos 1 pareja ó adulto ó abuelo y un hijo.';
+  if(grupoInvalido())error='Se requiere al menos 1 pareja \u00f3 adulto \u00f3 abuelo y un hijo.';
   else if(total>6)error='El m\u00e1ximo es 6 personas en total.';
   var errEl=document.getElementById('modal-error');
   errEl.textContent=error;errEl.classList.toggle('visible',error!=='');
