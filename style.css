@@ -274,6 +274,14 @@ a { text-decoration: none; color: inherit; }
 }
 .btn-wa svg { width: 22px; height: 22px; flex-shrink: 0; }
 .btn-wa:hover { background: #1ebe5d; transform: translateY(-2px); }
+.cta-row .btn-wa,
+.cta-row .btn-tel { min-width: 260px; justify-content: center; }
+
+
+
+
+
+
 .btn-wa-icon {
   width: 48px; height: 48px;
   background: rgba(0,0,0,0.15); border-radius: 8px;
