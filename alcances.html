@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alcances del alquiler — Posta del Este</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── EQUIPAMIENTO ── */
+    .equip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+    .equip-item {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      font-size: 0.88rem; color: rgba(255,255,255,0.8);
+      line-height: 1.45;
+    }
+    .equip-item .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #7ed4e8; flex-shrink: 0; margin-top: 0.45em;
+    }
+    .equip-item .tag {
+      font-size: 0.7rem; color: rgba(255,255,255,0.35);
+      margin-left: auto; flex-shrink: 0; padding-left: 0.5rem;
+    }
+
+    /* ── NO-LIST ── */
+    .no-list {
+      list-style: none; padding: 0;
+      display: flex; flex-direction: column; gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .no-list li {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      color: rgba(255,255,255,0.65); font-size: 0.9rem; line-height: 1.6;
+    }
+    .no-list li::before {
+      content: '✕';
+      color: var(--sunset); font-size: 0.75rem;
+      flex-shrink: 0; margin-top: 0.25em;
+    }
+
+    /* ── TEMPORADAS ── */
+    .temp-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+      margin-top: 1.5rem; margin-bottom: 1rem;
+    }
+    .temp-card {
+      border-radius: 12px; padding: 2rem;
+    }
+    .temp-card.alta { background: rgba(26,110,138,0.2); border: 1px solid rgba(26,110,138,0.35); }
+    .temp-card.baja { background: rgba(224,123,58,0.15); border: 1px solid rgba(224,123,58,0.3); }
+    .temp-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; margin-bottom: 0.3rem; color: #fff;
+    }
+    .temp-card .period {
+      font-size: 0.78rem; color: rgba(255,255,255,0.45);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .temp-detail { display: flex; flex-direction: column; gap: 0.75rem; }
+    .temp-row { display: flex; flex-direction: column; font-size: 0.88rem; }
+    .temp-row .label { color: rgba(255,255,255,0.4); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.15rem; }
+    .temp-row .value { color: rgba(255,255,255,0.85); }
+    .garantia-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1rem;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+    }
+
+    /* ── ADMISIÓN ── */
+    .admision-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem; margin-top: 1.5rem;
+    }
+    .admision-item {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px; padding: 1.25rem;
+      display: flex; align-items: flex-start; gap: 0.75rem;
+    }
+    .admision-item .icon { font-size: 1.3rem; flex-shrink: 0; }
+    .admision-item .text { font-size: 0.87rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
+
+    /* ── LEGAL BLOCK ── */
+    .legal-block {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--sunset);
+      border-radius: 0 10px 10px 0;
+      padding: 1.75rem 2rem;
+      margin-top: 1.5rem;
+    }
+    .legal-block h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; color: var(--sunset);
+      margin-bottom: 1.25rem; font-style: italic;
+    }
+    .legal-block p {
+      color: rgba(255,255,255,0.65); font-size: 0.9rem;
+      line-height: 1.8; margin-top: 1.25rem;
+    }
+
+    @media (max-width: 768px) {
+      .temp-grid { grid-template-columns: 1fr; }
+      .equip-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 540px) {
+      .cta-btns { flex-direction: column; align-items: stretch; }
+      .cta-btns a { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-brand">Posta del Este</a>
+  <button class="burger" id="burger"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="disponibilidad.html">Disponibilidad</a></li>
+    <li><a href="casa-frente.html">Casa Frente</a></li>
+    <li><a href="casa-fondo.html">Casa Fondo</a></li>
+    <li><a href="alcances.html">Alcances</a></li>
+    <li><a href="como-llegar.html">Como llegar</a></li>
+    <li><a href="entorno.html">Entorno</a></li>
+  </ul>
+</nav>
+
+<header class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('fotos/alcances/alc-hero.jpg')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="page-eyebrow">Condiciones y equipamiento</p>
+    <h1>Alcances del <em>alquiler</em></h1>
+    <p>Todo lo que incluye tu estadía — y lo que no. Leelo antes de reservar.</p>
+  </div>
+</header>
+
+<section class="page-body">
+  <div class="container">
+
+    <!-- EQUIPAMIENTO -->
+    <p class="section-eyebrow">Equipamiento incluido</p>
+    <h2 class="section-title dark">Dos casas equipadas para hasta 6 personas</h2>
+    <p class="body-text" style="color:inherit">Ambas casas están provistas de:</p>
+
+    <div class="equip-grid">
+      <div class="equip-item"><div class="dot"></div><span>WiFi 6 bibanda con alcance en todo el predio, con internet por fibra óptica</span></div>
+      <div class="equip-item"><div class="dot"></div><span>Televisión LED TV 32"<span class="tag">ambas casas</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>TvBox con acceso a plataformas + App gratis (la disponibilidad gratuita depende de los proveedores)</span></div>
+      <div class="equip-item"><div class="dot"></div><span>Microondas con horno eléctrico y grill<span class="tag">ambas casas</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Heladera con freezer<span class="tag">ambas casas</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Cocina convencional con horno a gas<span class="tag">ambas casas</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Vajilla completa para 6 personas<span class="tag">ambas casas</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Cafetera eléctrica convencional (filtro)<span class="tag">ambas casas</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Tostadora eléctrica<span class="tag">ambas casas</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Exprimidor de jugos eléctrico<span class="tag">ambas casas</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Pava eléctrica<span class="tag">ambas casas</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Ventilador de pie en cada habitación<span class="tag">ambas casas</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Lavarropas semiautomático<span class="tag">ambas casas</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Colchones "Canon" de espuma de alta densidad en todas las camas<span class="tag">ambas casas</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Cama matrimonial somier 1,4 × 1,90 m<span class="tag">Casa Fondo</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Cama matrimonial (colchón con resortes, cama de algarrobo) 1,4 × 1,9 m<span class="tag">Casa Frente</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>4 camas en cuchetas 0,80 × 1,90 m<span class="tag">Casa Fondo</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>2 camas en cucheta + 1 cama en habitación + 1 cama en living 0,80 × 1,90 m<span class="tag">Casa Frente</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Almohadas inteligentes en todas las camas<span class="tag">ambas casas</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Acolchados de pluma en todas las camas<span class="tag">ambas casas</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Ducha exterior<span class="tag">ambas casas</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Vigilancia exterior por videocámaras con grabación las 24 hs, acceso remoto y recuperación de eventos</span></div>
+      <div class="equip-item"><div class="dot"></div><span>Cajas de seguridad<span class="tag">Casa Fondo</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Lavavajillas (los insumos de jabón y sal son a cargo del inquilino)<span class="tag">Casa Frente</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Cortinas roller blackout eléctricos a control remoto (aberturas superiores)<span class="tag">Casa Fondo</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Cortinas blackout textiles (aberturas inferiores)<span class="tag">Casa Fondo</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Alarma individual con sensores de movimiento, rotura de vidrios y apertura de aberturas<span class="tag">Casa Fondo</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Calefacción por piso de loza radiante (no disponible hasta habilitación de red de gas natural)<span class="tag">Casa Fondo</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Hogar a leña<span class="tag">Casa Frente</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Parrilla con fogonero y utensilios<span class="tag">ambas casas</span></span></div>
+      <div class="equip-item"><div class="dot"></div><span>Sillones y mesa de exterior para usar en la galería<span class="tag">ambas casas</span></span></div>
+    </div>
+
+    <!-- GAS Y LUZ -->
+    <div class="info-box">
+      <p><strong>Consumo de luz incluido</strong> en todos los precios de locación temporaria.</p>
+    </div>
+    <div class="info-box">
+      <p><strong>Gas envasado:</strong> se provee sin cargo 1 garrafa de 10 kg por semana (duración promedio 10 días). El inquilino es responsable por el cambio de garrafas vacías y la compra de garrafas adicionales directamente al proveedor, quien entrega a domicilio. Opción alternativa: compra en centro de distribución Santa Teresita, aproximadamente 30% más económica.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- QUÉ NO INCLUYE -->
+    <p class="section-eyebrow">No incluye</p>
+    <h2 class="section-title dark">Qué no incluye</h2>
+    <p class="body-text" style="color:inherit">El formato del acuerdo es <strong>alquiler temporal de casa con fines vacacionales</strong> bajo las normas y leyes que lo rigen. NO hotel. NO apart hotel. NO complejo habitacional. Por tanto:</p>
+
+    <div class="legal-block">
+      <h3>Declaración legal — Alcances del servicio</h3>
+      <ul class="no-list">
+        <li>No ofrecemos ropa blanca (sábanas, toallas, servilletas, etc.)</li>
+        <li>No ofrecemos servicio de mucama ni desayuno</li>
+        <li>No ofrecemos artículos de limpieza ni de tocador</li>
+        <li>No ofrecemos plancha para la ropa ni secador de pelo</li>
+        <li>No ofrecemos elementos de playa</li>
+        <li>Únicamente proporcionamos los servicios detallados en esta página, junto con los elementos esenciales para el funcionamiento adecuado de la casa</li>
+        <li>No se permiten invitados, visitas ni terceros no autorizados. La propiedad es para uso exclusivo del grupo familiar contratante</li>
+      </ul>
+      <p>Se solicitará estacionar los vehículos en la entrada, ya que no está permitido su ingreso al predio. En caso de incumplimiento, se aplicará un cargo adicional y se deberán cubrir los gastos por los daños que puedan ocasionarse a las instalaciones.</p>
+      <p>Nos gustaría informar que no se permite la realización de fiestas o reuniones dentro de nuestras instalaciones, en cumplimiento tanto de nuestras normativas internas, como las regulaciones vigentes en Costa del Este. En caso de incumplimiento, se aplicará un cargo punitorio y podrá resultar en el accionar de las autoridades competentes.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- TEMPORADAS -->
+    <p class="section-eyebrow">Modalidades</p>
+    <h2 class="section-title dark">Modalidades de alquiler</h2>
+    <p class="body-text" style="color:inherit">Condiciones de check-in, check-out y reserva según temporada.</p>
+
+    <div class="temp-grid">
+      <div class="temp-card alta">
+        <h3>Temporada Alta</h3>
+        <p class="period">1 de diciembre al 31 de marzo</p>
+        <div class="temp-detail">
+          <div class="temp-row">
+            <span class="label">Check-in</span>
+            <span class="value">Sábado entre las 15:00 y 18:00 hs</span>
+          </div>
+          <div class="temp-row">
+            <span class="label">Check-out</span>
+            <span class="value">Sábado entre las 09:00 y 11:00 hs</span>
+          </div>
+          <div class="temp-row">
+            <span class="label">Reserva</span>
+            <span class="value">Mínimo 20% en efectivo o transferencia bancaria. Saldo al ingresar.</span>
+          </div>
+        </div>
+        <div class="garantia-box">
+          Al ingresar se solicita un <strong style="color:rgba(255,255,255,0.85)">depósito de garantía equivalente al ~20% del valor del alquiler</strong>, reembolsable al finalizar la estadía si no hay roturas ni faltantes y la propiedad se entrega en las mismas condiciones en que se recibió.
+        </div>
+      </div>
+
+      <div class="temp-card baja">
+        <h3>Fin de semana largo</h3>
+        <p class="period">Temporada baja · 31 de marzo al 1 de diciembre</p>
+        <div class="temp-detail">
+          <div class="temp-row">
+            <span class="label">Check-in</span>
+            <span class="value">Viernes o último día hábil, entre las 19:00 y 21:00 hs</span>
+          </div>
+          <div class="temp-row">
+            <span class="label">Check-out</span>
+            <span class="value">Domingo o último día feriado, entre las 17:00 y 19:00 hs</span>
+          </div>
+          <div class="temp-row">
+            <span class="label">Reserva</span>
+            <span class="value">Mínimo 50% en efectivo o transferencia bancaria. Saldo al ingresar.</span>
+          </div>
+        </div>
+        <div class="garantia-box">
+          Al ingresar se solicita un <strong style="color:rgba(255,255,255,0.85)">depósito de garantía equivalente al ~40% del valor del alquiler</strong> (para alquileres superiores a 5 días, ~20%). Reembolsable al finalizar si la propiedad se entrega en las mismas condiciones en que se recibió.
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ADMISIÓN -->
+    <p class="section-eyebrow">Admisión</p>
+    <h2 class="section-title dark">Condiciones de admisión</h2>
+    <p class="body-text" style="color:inherit">Reglas de convivencia que aplican a ambas casas sin excepción.</p>
+
+    <div class="admision-grid">
+      <div class="admision-item">
+        <div class="icon">👨‍👩‍👧‍👦</div>
+        <div class="text">Admitimos solo una <strong>familia nuclear conviviente</strong> por cada casa.</div>
+      </div>
+      <div class="admision-item">
+        <div class="icon">🚫</div>
+        <div class="text">Lamentablemente, <strong>no alquilamos a parejas ni a grupos de jóvenes</strong> en ninguna circunstancia.</div>
+      </div>
+      <div class="admision-item">
+        <div class="icon">🐾</div>
+        <div class="text">Por razones de higiene y convivencia, <strong>no se admiten mascotas</strong>. Agradecemos tu comprensión.</div>
+      </div>
+      <div class="admision-item">
+        <div class="icon">🏍️</div>
+        <div class="text">Tener en cuenta que <strong>no aceptamos el ingreso de cuatriciclos</strong> a nuestras instalaciones.</div>
+      </div>
+      <div class="admision-item">
+        <div class="icon">🎉</div>
+        <div class="text"><strong>No se permiten fiestas</strong> ni reuniones fuera del grupo familiar residente.</div>
+      </div>
+      <div class="admision-item">
+        <div class="icon">🚷</div>
+        <div class="text"><strong>Uso exclusivo</strong> — No se permiten visitas ni terceros. La propiedad es para uso exclusivo del grupo contratante.</div>
+      </div>
+      <div class="admision-item">
+        <div class="icon">🚗</div>
+        <div class="text"><strong>Vehículos en la entrada</strong> — no está permitido el ingreso al predio.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2>¿Todo claro? Hablemos.</h2>
+  <p>Consultanos por el período que te interesa y la cantidad de personas. Respondemos rápido.</p>
+  <div class="cta-btns">
+    <a href="https://wa.me/5491167899975?text=Hola%20Sergio%2C%20buen%20d%C3%ADa!%20Consulto%20para%20alquilar%20en%20Costa%20del%20Este.%20Te%20detallo%20el%20per%C3%ADodo%20y%20cantidad%20de%20personas%3A%20" class="btn-wa" target="_blank">
+      <svg viewBox="0 0 24 24" fill="white" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp &mdash; Consultar
+    </a>
+    <a href="disponibilidad.html" class="btn-tel-sm">
+      Consultar disponibilidad
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">Posta del Este</div>
+  <nav class="footer-nav">
+    <a href="index.html">Inicio</a>
+    <a href="disponibilidad.html">Disponibilidad</a>
+    <a href="casa-frente.html">Casa Frente</a>
+    <a href="casa-fondo.html">Casa Fondo</a>
+    <a href="alcances.html">Alcances</a>
+    <a href="como-llegar.html">Como llegar</a>
+    <a href="entorno.html">Entorno</a>
+  </nav>
+  <p class="footer-copy">© 2010–2026 Posta del Este · Costa del Este, Buenos Aires</p>
+</footer>
+
+<script>
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => navbar.classList.toggle('solid', scrollY > 80));
+  burger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    navbar.classList.toggle('menu-open');
+  });
+  document.querySelectorAll(".nav-links a").forEach(a => {
+    const href = a.getAttribute("href");
+    if (href && !href.startsWith("#")) {
+      const current = location.pathname.split("/").pop() || "index.html";
+      const target = href.split("/").pop();
+      if (target === current) a.classList.add("active");
+    }
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navbar.classList.remove('menu-open');
+  }));
+</script>
+</body>
+</html>

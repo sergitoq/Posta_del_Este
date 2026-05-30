@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Como llegar — Posta del Este</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .nav-links a.active { color: #fff; background: rgba(255,255,255,0.18); font-weight: 600; }
+    .transport-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .transport-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      padding: 1.75rem;
+    }
+    .transport-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      margin: 0 0 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .transport-card p {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+      opacity: 0.88;
+    }
+    .transport-card p + p { margin-top: 0.75rem; }
+    .address-block {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.9;
+      opacity: 0.88;
+    }
+    .info-box {
+      background: rgba(26,110,138,0.15);
+      border: 1px solid rgba(26,110,138,0.35);
+      border-radius: 10px; padding: 1.25rem 1.75rem; margin-bottom: 1.5rem;
+    }
+    .info-box p { color: rgba(255,255,255,0.75); font-size: 0.92rem; line-height: 1.75; }
+    .info-box strong { color: #7ed4e8; font-weight: 600; }
+      @media (max-width: 600px) {
+      .cta-buttons { flex-direction: column; align-items: stretch; }
+      .cta-buttons a { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-brand">Posta del Este</a>
+  <button class="burger" id="burger"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="disponibilidad.html">Disponibilidad</a></li>
+    <li><a href="casa-frente.html">Casa Frente</a></li>
+    <li><a href="casa-fondo.html">Casa Fondo</a></li>
+    <li><a href="alcances.html">Alcances</a></li>
+    <li><a href="como-llegar.html">Como llegar</a></li>
+    <li><a href="entorno.html">Entorno</a></li>
+  </ul>
+</nav>
+
+<header class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('fotos/como-llegar/cl-hero.jpg')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="page-eyebrow">Ubicación</p>
+    <h1>Como <em>llegar</em></h1>
+    <p>Costa del Este, partido de La Costa, Buenos Aires. Acceso por asfalto.</p>
+  </div>
+</header>
+
+<section class="page-body">
+  <div class="container">
+
+    <p class="section-eyebrow">Ubicación</p>
+    <h2 class="section-title dark">Costa del Este, Buenos Aires</h2>
+    <p class="body-text" style="color:inherit">Posta del Este está en Costa del Este, partido de La Costa. Zona tranquila, familiar y segura, con acceso por calle asfaltada. Frente a la reserva ecológica.</p>
+	
+    <p class="body-text" style="color:inherit">Costa del Este constituye una de las más pintorescas localidades del Partido de La Costa, Provincia de Buenos Aires. Está ubicada en el Kilómetro 333 de la Ruta 11, también conocida como Ruta Interbalnearia, entre Mar del Tuyú y Aguas Verdes.</p>
+
+    <div class="info-box">
+      <p>📍 A <strong>4 cuadras del mar</strong> (por sendero peatonal asfaltado a través de la reserva) y a <strong>6 cuadras del centro</strong> de Costa del Este.</p>
+    </div>
+
+    <h3 class="sub-title dark" style="margin-top:2.5rem">Dirección</h3>
+    <div class="address-block">
+      <p>
+        Av. Interbalnearia 557 e/ 6 y 7<br>
+        Costa del Este (7108)<br>
+        Partido de La Costa<br>
+        Buenos Aires, Argentina
+      </p>
+      <p class="gps-coords">
+        <strong>GPS</strong><br>
+        Lat: S 36° 37.048'<br>
+        Long: O 56° 41.610'
+      </p>
+    </div>
+
+    <h3 class="sub-title dark" style="margin-top:2.5rem">Navegar con GPS</h3>
+    <div class="map-btns">
+      <a href="https://maps.app.goo.gl/nYuQYs19Rtvbtbm46" target="_blank" class="btn-map">
+        📍 Abrir en Google Maps
+      </a>
+      <a href="https://www.waze.com/en-GB/live-map/directions?to=ll.-36.617281%2C-56.69338" target="_blank" class="btn-map">
+        🔵 Abrir en Waze
+      </a>
+    </div>
+
+    <div class="map-embed">
+      <!--
+        REEMPLAZÁ este iframe con el tuyo:
+        Google Maps → tu ubicación → Compartir → Insertar un mapa → copiar el iframe
+      -->
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52693.4!2d-56.99!3d-36.53!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95ba5a24d8af5c05%3A0x3b5b5b5b5b5b5b5b!2sCosta+del+Este%2C+Buenos+Aires!5e0!3m2!1ses!2sar!4v1"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+		 <!--	<div class="map-embed">
+      <img src="fotos/como-llegar/MapaChico.jpg" alt="Mapa de ubicación - Posta del Este" style="width:100%; border-radius:8px; display:block;">
+    </div>
+		-->
+    
+	<div class="map-embed">
+		<iframe src="https://www.google.com/maps/embed?pb=!1m26!1m12!1m3!1d3202.4648857308594!2d-56.70844529825968!3d-36.61519499999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m11!3e0!4m3!3m2!1d-36.6080481!2d-56.7131439!4m5!1s0x959c6d45db3234b5%3A0x4081d2a02f71497a!2sAvenida%20Interbalnearia%20557%2C%20B7108%20Costa%20del%20Este%2C%20Provincia%20de%20Buenos%20Aires!3m2!1d-36.6174721!2d-56.6934517!5e0!3m2!1sen!2sar!4v1780053751420!5m2!1sen!2sar" width="100%" height="450" style="border:0; border-radius:8px; display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+	</div>
+	
+	
+	
+	
+	<h3 class="sub-title dark" style="margin-top:2.5rem">Cómo llegar</h3>
+
+    <div class="transport-grid">
+
+      <div class="transport-card">
+        <h4>🚗 En automóvil</h4>
+        <p>Tomá la Ruta 2 hasta el Km 206 (Dolores). Subí el puente y tomá la Ruta 63 hacia la Costa Atlántica. Luego de 30 km (Esquina de Crotto) encontrarás la Ruta 11. Doblá a la derecha; después del peaje, en el Km 250 (rotonda de Conesa) doblá a la izquierda hacia el Partido de la Costa. Seguí hasta el Km 333 y encontrarás el bulevar de acceso a Costa del Este.</p>
+        <p>Una vez ingresado, en la bifurcación tomá a la derecha siguiendo el asfalto. Cuando éste termina, doblá a la izquierda hasta la entrada a la Reserva Ecológica; de ahí, media cuadra a la derecha se encuentra Posta del Este.</p>
+      </div>
+
+      <div class="transport-card">
+        <h4>🚌 En micro</h4>
+        <p>Costa del Este no tiene terminal propia, pero varias empresas arriban al Parador de Mar del Tuyú, localidad vecina a 3 km. Entre otras: Rápido Argentino, Rutamar, El Rápido, Plusmar, Telebus, Alvarez Hnos. y Rutatlántica.</p>
+        <p>Desde Mar del Tuyú podés llegar en <strong>remis</strong> (Remis "La 79", Tel. 02246 43-4363 — en calle 79 y 2, a 6 cuadras de la terminal) o en el <strong>Colectivo 500</strong> (indicar: Interbalnearia y 6; acepta SUBE o efectivo).</p>
+      </div>
+
+      <div class="transport-card">
+        <h4>✈️ En avión</h4>
+        <p>Durante la temporada de verano, <strong>LADE</strong> opera vuelos desde el Aeroparque Jorge Newbery hasta el Aeródromo de Santa Teresita.</p>
+        <p>Desde Santa Teresita podés llegar a Costa del Este en remis (7 km) o en el Colectivo 500, que recorre todos los balnearios.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<div style="padding:0 0 7rem;">
+  <div style="background:#2d5c43;padding:3rem 2.5rem;text-align:center;">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:0.75rem;">¿Necesitás más indicaciones?</h3>
+    <p style="color:rgba(255,255,255,0.55);font-size:0.95rem;margin-bottom:2rem;">Escribinos y te ayudamos a llegar sin problema.</p>
+    <div class="cta-buttons" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="https://wa.me/5491167899975?text=Hola%20Sergio%2C%20necesito%20indicaciones%20para%20llegar%20a%20Posta%20del%20Este" target="_blank"
+        style="background:#25D366;color:#fff;padding:0.9rem 2rem;border-radius:0.4rem;font-size:0.95rem;font-weight:600;display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;">
+        <svg viewBox="0 0 24 24" fill="white" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp &mdash; Consultar
+      </a>
+      <a href="disponibilidad.html"
+        style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.25);padding:0.9rem 2rem;border-radius:0.4rem;font-size:0.95rem;font-weight:500;display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;transition:all 0.25s;">
+        Consultar disponibilidad
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">Posta del Este</div>
+  <nav class="footer-nav">
+    <a href="index.html">Inicio</a>
+    <a href="disponibilidad.html">Disponibilidad</a>
+    <a href="casa-frente.html">Casa Frente</a>
+    <a href="casa-fondo.html">Casa Fondo</a>
+    <a href="alcances.html">Alcances</a>
+    <a href="como-llegar.html">Como llegar</a>
+    <a href="entorno.html">Entorno</a>
+  </nav>
+  <p class="footer-copy">© 2010–2026 Posta del Este · Costa del Este, Buenos Aires</p>
+</footer>
+
+<script>
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    document.getElementById('navbar').classList.toggle('menu-open');
+  });
+  document.querySelectorAll(".nav-links a").forEach(a => {
+    const href = a.getAttribute("href");
+    if (href && !href.startsWith("#")) {
+      const current = location.pathname.split("/").pop() || "index.html";
+      const target = href.split("/").pop();
+      if (target === current) a.classList.add("active");
+    }
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { navLinks.classList.remove('open'); document.getElementById('navbar').classList.remove('menu-open'); }));
+</script>
+</body>
+</html>
