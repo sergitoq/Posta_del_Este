@@ -339,6 +339,8 @@ footer {
 }
 .footer-nav a:hover { color: #fff; background: rgba(255,255,255,0.08); }
 .footer-copy { color: rgba(255,255,255,0.2); font-size: 0.75rem; }
+.footer-copy a { color: #7ed4e8; }
+.footer-copy a:hover { text-decoration: underline; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
