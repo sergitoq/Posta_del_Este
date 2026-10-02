@@ -529,8 +529,8 @@ function cotizarFechas(){
   if(hy) txtPers+=hy+'hma12+';
   if(hn) txtPers+=hn+'hme12+';
   if(txtPers) txtPers=txtPers.slice(0,-1)+' ('+pers+' pers)';
-  var txtDisponible='Disponible casa Fondo (ladrillos rojos a confirmar)';
-  if(el('resultado').textContent.includes('Frente')) txtDisponible='Disponible casa Frente (amarilla a confirmar)';
+  var txtDisponible='Disponible casa Fondo (ladrillos rojos)';
+  if(el('resultado').textContent.includes('Frente')) txtDisponible='Disponible casa Frente (amarilla)';
   var txtCorto=el('resultado').textContent;
   var pie='';
   var iR=txtCorto.indexOf('Reserva');
@@ -801,5 +801,5 @@ window.addEventListener('load',function(){
 Periodo <input id='v_per' style='width:70px;'> Personas <input id='v_pers' style='width:40px;'> Precio <input id='v_precio' style='width:70px;'> Fecha <input id='v_fecha' style='width:80px;'> Firma <input id='v_firma' style='width:80px;'>
 <br><br><button id='btnVerificar' onclick='verificar()' disabled>VERIFICAR</button><div id='v_resultado' class='verifBox'></div>
 </div>
-<div class='version'>Ver. v3.03 06-May-26 / Database 02-Oct-26 11:28</div>
+<div class='version'>Ver. v3.03 06-May-26 / Database 02-Oct-26 11:33</div>
 </div></body></html>
