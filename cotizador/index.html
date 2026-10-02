@@ -581,6 +581,7 @@ function buscar(){
   if(m) extra+=m+'par+';if(y) extra+=y+'may21+';if(a) extra+=a+'abu+';if(hy) extra+=hy+'hma12+';if(hn) extra+=hn+'hme12+';
   if(extra) extra=extra.slice(0,-1);
   if(extra) t=base+' '+extra+' ('+p+' pers)\n'+t.substring(base.length);
+  t=t.replace(/\s+$/,'')+'\n\nDisponibilidad sujeta a confirmación al momento de la reserva.';
   var f=new Date();
   var dd=f.getDate().toString().padStart(2,'0');
   var mmm=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'][f.getMonth()];
@@ -801,5 +802,5 @@ window.addEventListener('load',function(){
 Periodo <input id='v_per' style='width:70px;'> Personas <input id='v_pers' style='width:40px;'> Precio <input id='v_precio' style='width:70px;'> Fecha <input id='v_fecha' style='width:80px;'> Firma <input id='v_firma' style='width:80px;'>
 <br><br><button id='btnVerificar' onclick='verificar()' disabled>VERIFICAR</button><div id='v_resultado' class='verifBox'></div>
 </div>
-<div class='version'>Ver. v3.03 06-May-26 / Database 02-Oct-26 11:33</div>
+<div class='version'>Ver. v3.04 02-Oct-26 / Database 02-Oct-26 11:53</div>
 </div></body></html>
