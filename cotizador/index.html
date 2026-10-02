@@ -1,0 +1,805 @@
+﻿<!DOCTYPE html>
+<html><head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta http-equiv='Cache-Control' content='no-cache, no-store, must-revalidate'>
+<meta http-equiv='Pragma' content='no-cache'>
+<meta http-equiv='Expires' content='0'>
+<title>Cotizador Posta del Este</title>
+<style>
+body{font-family:Arial;background:#121212;color:#e6e6e6;padding:20px;}
+#box{background:#1d1d1d;padding:22px;border-radius:14px;}
+input,select{background:#222;color:#fff;border:1px solid #333;border-radius:8px;padding:10px;font-size:16px;margin:6px 4px;}
+button{background:#0a84ff;color:#fff;border:none;border-radius:8px;padding:10px 14px;font-size:15px;margin-top:12px;margin-right:4px;}
+button:disabled{background:#555;color:#aaa;}
+#resultado,#cotizacion{white-space:pre-wrap;background:#1a1a1a;border:1px solid #333;padding:16px;margin-top:20px;border-radius:10px;font-size:18px;}
+.error{color:#ff4c4c;font-weight:bold;font-size:20px;}
+.version{margin-top:20px;font-size:13px;color:#888;text-align:right;}
+.firma{font-size:12px;color:#999;font-weight:normal;}
+.verifBox{display:inline-flex;align-items:center;justify-content:center;height:48px;min-width:150px;border-radius:8px;font-size:16px;font-weight:bold;margin-left:10px;}
+.ok{background:#1f7a3a;color:#eaffea;}
+.bad{background:#8b1e1e;color:#ffecec;}
+.incNeg{color:#ff4c4c;font-weight:bold;}
+.incPos{color:#4caf50;font-weight:bold;}
+.verifBox.ok::before{content:'\2713 ';font-weight:bold;}
+.verifBox.bad::before{content:'\2717 ';font-weight:bold;}
+.copiado{background:#2e7d32!important;color:#eaffea;}
+.btnWpp{background:#25d366!important;color:#fff;}
+.btnWpp:disabled{background:#555!important;color:#aaa;}
+select option[value^='-']{color:#ff4c4c;font-weight:bold;}
+select option[value^='+']{color:#4caf50;font-weight:bold;}
+.resBox{white-space:pre-wrap;background:#1a1a1a;border:1px solid #333;padding:16px;margin-top:15px;border-radius:10px;font-size:18px;}
+input[readonly]{background:#333;color:#aaa;cursor:default;}
+</style></head><body><div id='box'>
+<h3>Cotización y Vacante de Períodos</h3>
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+<select id='selPeriodo' onchange="if(this.value){document.getElementById('codigo').value=this.value;buscar();saveState();}" style='max-width:90px;flex:0 0 auto;'>
+<option value=''>Período</option>
+</select>
+<input id='codigo' placeholder='Ej:1SFFD' oninput='buscar();saveState();' style='max-width:65px;flex:0 0 auto;'>
+<button onclick='limpiar()' style="margin-top:-4px;">Reset</button>
+</div>
+<div>
+par <select id='mat' onchange='buscar();saveState();'><option>0</option><option>1</option><option>2</option></select>
+ma21 <select id='may' onchange='buscar();saveState();'><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
+abu <select id='abu' onchange='buscar();saveState();'><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
+</div>
+<div>
+hma12 <select id='hma' onchange='buscar();saveState();'><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
+hme12 <select id='hme' onchange='buscar();saveState();'><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
+</div>
+<div>
+mon <select id='mon' onchange='buscar();saveState();' style='width:70px;'><option value='ars'>$</option><option value='usd'>usd</option></select>
+Ind <select id='inc' onchange='buscar();saveState();' style='width:80px;'><option value='-20'>-20%</option><option value='-15'>-15%</option><option value='-10'>-10%</option><option value='-8'>-8%</option><option value='-5'>-5%</option><option value='-3'>-3%</option><option value='0'>0%</option><option value='+3'>+3%</option><option value='+5'>+5%</option><option value='+8'>+8%</option><option value='+10'>+10%</option><option value='+15'>+15%</option><option value='+20'>+20%</option></select>
+<span id='incAuto' class='verifBox' style='min-width:50px;'>0%</span>
+</div>
+<div id='resultado'></div>
+<button id='btnCopiarWpp' onclick='copiarWpp()' disabled>COPIAR</button>
+<button id='btnEnviarWpp' class='btnWpp' onclick='enviarWpp()' disabled>WPP</button>
+<button id='btnCopiar' onclick='copiar()' disabled>COPIAR +ID</button>
+<hr style='margin:25px 0;border-color:#333;'>
+<h3>Cotización por Fechas</h3>
+<div style='display:flex;gap:10px;flex-wrap:wrap;align-items:center;'>
+Desde <input type='date' id='fDesde' onchange='syncHasta();cotizarFechas();saveState();'>
+Hasta <input type='date' id='fHasta' onchange='cotizarFechas();saveState();'>
+</div>
+<div style='display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:6px;'>
+Precio semanal <input id='precioSemana' type='number' min='0' style='width:120px;' oninput='cotizarFechas();saveState();'>
+Cantidad de días <input id='cantDias' type='number' style='width:60px;' readonly>
+</div>
+<div id='resFechas' class='resBox'></div>
+<button id='btnCopiarFechas' onclick='copiarFechas()' disabled>COPIAR</button>
+<button id='btnEnviarWppFechas' class='btnWpp' onclick='enviarWppFechas()' disabled>WPP</button>
+<script>
+const DB_FECHA='27/Sep/26';
+const navFields=['selPeriodo','codigo','mat','may','abu','hma','hme','mon','inc'];
+var datos={
+"1SD": `1SD 
+Sáb 05/12 al Sáb 12/12/26
+Disponible casa XX
+
+*Precio $944.000.-*
+*Precio usd 610.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"2SD": `2SD 
+Sáb 12/12 al Sáb 19/12/26
+Disponible casa XX
+
+*Precio $944.000.-*
+*Precio usd 610.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"3SD": `3SD 
+Sáb 19/12 al Sáb 26/12/26
+Disponible casa XX
+
+*Precio $1.048.000.-*
+*Precio usd 680.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"4SD": `4SD 
+Sáb 26/12 al Sáb 02/01/27
+Disponible casa XX
+
+*Precio $1.048.000.-*
+*Precio usd 680.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"1SE": `1SE 
+Sáb 02/01 al Sáb 09/01/27
+Disponible casa XX
+
+*Precio $1.071.000.-*
+*Precio usd 690.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"2SE": `2SE 
+Sáb 09/01 al Sáb 16/01/27
+Disponible casa XX
+
+*Precio $1.071.000.-*
+*Precio usd 690.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"3SE": `3SE 
+Sáb 16/01 al Sáb 23/01/27
+Disponible casa XX
+
+*Precio $1.128.000.-*
+*Precio usd 730.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"4SE": `4SE 
+Sáb 23/01 al Sáb 30/01/27
+Disponible casa XX
+
+*Precio $1.128.000.-*
+*Precio usd 730.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"1SF": `1SF 
+Sáb 30/01 al Sáb 06/02/27
+Disponible casa XX
+
+*Precio $1.048.000.-*
+*Precio usd 680.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"2SF": `2SF 
+Sáb 06/02 al Sáb 13/02/27
+Disponible casa XX
+
+*Precio $1.048.000.-*
+*Precio usd 680.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"3SF": `3SF 
+Sáb 13/02 al Sáb 20/02/27
+Disponible casa XX
+
+*Precio $986.000.-*
+*Precio usd 640.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"4SF": `4SF 
+Sáb 20/02 al Sáb 27/02/27
+Disponible casa XX
+
+*Precio $986.000.-*
+*Precio usd 640.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"1SM": `1SM 
+Sáb 27/02 al Sáb 06/03/27
+Disponible casa XX
+
+*Precio $913.000.-*
+*Precio usd 590.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"2SM": `2SM 
+Sáb 06/03 al Sáb 13/03/27
+Disponible casa XX
+
+*Precio $913.000.-*
+*Precio usd 590.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"3SM": `3SM 
+Sáb 13/03 al Sáb 20/03/27
+Disponible casa XX
+
+*Precio $868.000.-*
+*Precio usd 560.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"4SM": `4SM 
+Sáb 20/03 al Sáb 27/03/27
+Disponible casa XX
+
+*Precio $868.000.-*
+*Precio usd 560.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"1QD": `1QD 
+Sáb 05/12 al Sáb 19/12/26
+Disponible casa XX
+
+*Precio $1.850.000.-*
+*Precio usd 1.200.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"1*QD": `1*Q 
+Sáb 12/12 al Sáb 26/12/26
+Disponible casa XX
+
+*Precio $1.952.500.-*
+*Precio usd1.260.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"2QD": `2QD 
+Sáb 19/12 al Sáb 02/01/27
+Disponible casa XX
+
+*Precio $2.055.000.-*
+*Precio usd 1.330.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"2*QD": `2*Q 
+Sáb 26/12 al Sáb 09/01/27
+Disponible casa XX
+
+*Precio $2.077.500.-*
+*Precio usd1.340.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"1QE": `1QE 
+Sáb 02/01 al Sáb 16/01/27
+Disponible casa XX
+
+*Precio $2.100.000.-*
+*Precio usd 1.360.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"1*QE": `1*Q 
+Sáb 09/01 al Sáb 23/01/27
+Disponible casa XX
+
+*Precio $2.155.000.-*
+*Precio usd1.390.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"2QE": `2QE 
+Sáb 16/01 al Sáb 30/01/27
+Disponible casa XX
+
+*Precio $2.210.000.-*
+*Precio usd 1.430.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"2*QE": `2*Q 
+Sáb 23/01 al Sáb 06/02/27
+Disponible casa XX
+
+*Precio $2.132.500.-*
+*Precio usd1.380.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"1QF": `1QF 
+Sáb 30/01 al Sáb 13/02/27
+Disponible casa XX
+
+*Precio $2.055.000.-*
+*Precio usd 1.330.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"1*QF": `1*Q 
+Sáb 06/02 al Sáb 20/02/27
+Disponible casa XX
+
+*Precio $1.993.500.-*
+*Precio usd1.290.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"2QF": `2QF 
+Sáb 13/02 al Sáb 27/02/27
+Disponible casa XX
+
+*Precio $1.932.000.-*
+*Precio usd 1.250.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"2*QF": `2*Q 
+Sáb 20/02 al Sáb 06/03/27
+Disponible casa XX
+
+*Precio $1.861.000.-*
+*Precio usd1.200.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"1QM": `1QM 
+Sáb 27/02 al Sáb 13/03/27
+Disponible casa XX
+
+*Precio $1.790.000.-*
+*Precio usd 1.160.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"1*QM": `1*Q 
+Sáb 06/03 al Sáb 20/03/27
+Disponible casa XX
+
+*Precio $1.745.500.-*
+*Precio usd1.130.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"2QM": `2QM 
+Sáb 13/03 al Sáb 27/03/27
+Disponible casa XX
+
+*Precio $1.701.000.-*
+*Precio usd 1.100.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"Dia de la Raza": `Dia de la Raza  No está disponible`,
+"Soberania Nac": `Soberania Nac  No está disponible`,
+"Inmaculada Concep": `Inmaculada Concep  No está disponible`,
+"Noche Buena / Navidad": `Noche Buena / Navidad  No está disponible`,
+"Fin año / Año Nuevo": `Fin año / Año Nuevo  No está disponible`,
+"Carnaval": `Carnaval  No está disponible`,
+"Día de la Memoria / Jueves San": `Día de la Memoria / Jueves San  No está disponible`,
+"Día Vet Malvinas": `Día Vet Malvinas  No está disponible`,
+"Revolución de Mayo": `Revolución de Mayo 
+Sáb 22/05 al Mar 25/05/27
+Disponible casa XX
+
+*Precio $434.000.-*
+*Precio usd 281.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"Día Bandera / Belgrano / Aniv.": `Día Bandera / Belgrano / Aniv. 
+Sáb 19/06 al Lun 21/06/27
+Disponible casa XX
+
+*Precio $310.000.-*
+*Precio usd 201.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"Día Independencia": `Día Independencia 
+Vie 09/07 al Dom 11/07/27
+Disponible casa XX
+
+*Precio $310.000.-*
+*Precio usd 201.-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+"Aniv. San Martín": `Aniv. San Martín 
+Sáb 14/08 al Lun 16/08/27
+Disponible casa XX
+
+*Precio $310.000.-*
+*Precio usd .-*
+
+Reserva 30% aprox. saldo al ingresar.
+
+https://www.PostaDelEste.com.ar/casa-XX`,
+};
+function navKeyHandler(e){
+  if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft') return;
+  const idx=navFields.indexOf(e.target.id);
+  if(idx===-1) return;
+  e.preventDefault();
+  const nextIdx=e.key==='ArrowRight'?(idx+1)%navFields.length:(idx-1+navFields.length)%navFields.length;
+  const nextEl=document.getElementById(navFields[nextIdx]);
+  if(nextEl) nextEl.focus();
+}
+function el(id){return document.getElementById(id);}
+function saveState(){
+  var state={
+    codigo:el('codigo').value,
+    mat:el('mat').value,
+    may:el('may').value,
+    abu:el('abu').value,
+    hma:el('hma').value,
+    hme:el('hme').value,
+    mon:el('mon').value,
+    inc:el('inc').value,
+    fDesde:el('fDesde').value,
+    fHasta:el('fHasta').value,
+    precioSemana:el('precioSemana').value
+  };
+  try{localStorage.setItem('cotizadorState',JSON.stringify(state));}catch(e){}
+}
+function restoreState(){
+  var raw;
+  try{raw=localStorage.getItem('cotizadorState');}catch(e){return false;}
+  if(!raw) return false;
+  var s;
+  try{s=JSON.parse(raw);}catch(e){return false;}
+  if(s.codigo!==undefined) el('codigo').value=s.codigo;
+  if(s.mat!==undefined) el('mat').value=s.mat;
+  if(s.may!==undefined) el('may').value=s.may;
+  if(s.abu!==undefined) el('abu').value=s.abu;
+  if(s.hma!==undefined) el('hma').value=s.hma;
+  if(s.hme!==undefined) el('hme').value=s.hme;
+  if(s.mon!==undefined) el('mon').value=s.mon;
+  if(s.inc!==undefined) el('inc').value=s.inc;
+  if(s.fDesde) el('fDesde').value=s.fDesde;
+  if(s.fHasta) el('fHasta').value=s.fHasta;
+  if(s.precioSemana) el('precioSemana').value=s.precioSemana;
+  return true;
+}
+function clearState(){
+  try{localStorage.removeItem('cotizadorState');}catch(e){}
+}
+function syncHasta(){
+  var d=el('fDesde').value;
+  if(!d) return;
+  var parts=d.split('-').map(Number);
+  var ultimo=new Date(parts[0],parts[1],0);
+  var mm=String(ultimo.getMonth()+1).padStart(2,'0');
+  var dd=String(ultimo.getDate()).padStart(2,'0');
+  el('fHasta').value=parts[0]+'-'+mm+'-'+dd;
+}
+function cargarPeriodos(){
+  var s=el('selPeriodo');
+  if(!s) return;
+  while(s.options.length>1) s.remove(1);
+  Object.keys(datos).forEach(function(k){
+    if(datos[k].toLowerCase().includes(' no est\u00e1 disponible')) return;
+    var o=document.createElement('option');o.value=k;o.textContent=k;s.appendChild(o);
+  });
+}
+function cotizarFechas(){
+  const d1=el('fDesde').value;
+  const d2=el('fHasta').value;
+  const ps=+el('precioSemana').value;
+  const out=el('resFechas');
+  const btn=el('btnCopiarFechas');
+  const bewf=el('btnEnviarWppFechas');
+  if(!d1||!d2){out.textContent='';btn.disabled=true;if(bewf) bewf.disabled=true;return;}
+  if(!ps){out.textContent='Ingresá el precio semanal.';btn.disabled=true;if(bewf) bewf.disabled=true;return;}
+  const partsD=d1.split('-').map(Number);
+  const partsH=d2.split('-').map(Number);
+  const fD=new Date(partsD[0],partsD[1]-1,partsD[2]);
+  const fH=new Date(partsH[0],partsH[1]-1,partsH[2]);
+  const dias=Math.round((fH-fD)/(1000*60*60*24));
+  var cd=el('cantDias');if(cd) cd.value=dias;
+  if(dias<=0){out.innerHTML='<span class="error">Fechas inválidas</span>';btn.disabled=true;if(bewf) bewf.disabled=true;return;}
+  const total=Math.round((ps/7*dias)/1000)*1000;
+  const sem=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  const fd=sem[fD.getDay()]+' '+String(fD.getDate()).padStart(2,'0')+'/'+String(fD.getMonth()+1).padStart(2,'0');
+  const fh=sem[fH.getDay()]+' '+String(fH.getDate()).padStart(2,'0')+'/'+String(fH.getMonth()+1).padStart(2,'0');
+  var m=+el('mat').value||0,y=+el('may').value||0,a=+el('abu').value||0;
+  var hy=+el('hma').value||0,hn=+el('hme').value||0;
+  var pers=m*2+y+a+hy+hn;
+  var txtPers='';
+  if(m) txtPers+=m+'par+';
+  if(y) txtPers+=y+'may21+';
+  if(a) txtPers+=a+'abu+';
+  if(hy) txtPers+=hy+'hma12+';
+  if(hn) txtPers+=hn+'hme12+';
+  if(txtPers) txtPers=txtPers.slice(0,-1)+' ('+pers+' pers)';
+  var txtDisponible='Disponible casa Fondo (ladrillos rojos)';
+  if(el('resultado').textContent.includes('Frente')) txtDisponible='Disponible casa Frente (amarilla)';
+  var txtCorto=el('resultado').textContent;
+  var pie='';
+  var iR=txtCorto.indexOf('Reserva');
+  if(iR>=0) pie=txtCorto.substring(iR).trim();
+  out.textContent=
+    (txtPers?txtPers+'\n\n':'')+fd+' al '+fh+'\n'+txtDisponible+'\n\n'+
+    '*Precio $'+total.toLocaleString('es-AR')+'.-*'+(pie?'\n\n'+pie:'');
+  btn.disabled=false;
+  if(bewf) bewf.disabled=false;
+}
+async function generarHash(str){
+  const enc=new TextEncoder().encode(str);
+  const buf=await crypto.subtle.digest('SHA-256',enc);
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('').substring(0,4).toUpperCase();
+}
+function buscar(){
+  var btn=el('btnCopiar');
+  var btnWpp=el('btnCopiarWpp');
+  var bew=el('btnEnviarWpp');
+  var bv=el('btnVerificar');if(bv) bv.disabled=true;
+  var bl=el('btnCopiarLargo');if(bl) bl.disabled=true;
+  btn.disabled=true;
+  if(btnWpp) btnWpp.disabled=true;
+  if(bew) bew.disabled=true;
+  el('cotizacion').textContent='';
+  var resultado=el('resultado');
+  resultado.className='';
+  var c=el('codigo').value;
+  var cUp=c.toUpperCase();
+  var suf='',base=c;
+  if(cUp.endsWith('FD')||cUp.endsWith('FT')){suf=cUp.slice(-2);base=c.slice(0,-2);}
+  var t=datos[base]||'';
+  if(!t){var baseUp=base.toUpperCase();var found=Object.keys(datos).find(function(k){return k.toUpperCase()===baseUp;});if(found){base=found;t=datos[found]||'';}}
+  if(t&&t.toLowerCase().includes(' no está disponible')){
+    resultado.textContent=t;resultado.className='error';
+    btn.disabled=true;if(btnWpp) btnWpp.disabled=true;if(bew) bew.disabled=true;
+    if(bl) bl.disabled=true;if(bv) bv.disabled=true;
+    return;
+  }
+  var m=+el('mat').value,y=+el('may').value,a=+el('abu').value;
+  var hy=+el('hma').value,hn=+el('hme').value;
+  var p=m*2+y+a+hy+hn;
+  if(p===0){resultado.textContent='';return;}
+  if(p>6){resultado.innerHTML='<span class="error">Capacidad máxima 6 personas</span>';return;}
+  if(!t){resultado.textContent='';return;}
+  t=(suf==='FT')?t.replace('casa XX','casa Frente (amarilla)').replace(/casa-xx/i,'casa-frente'):t.replace('casa XX','casa Fondo (ladrillos rojos)').replace(/casa-xx/i,'casa-fondo');
+  var extra='';
+  if(m) extra+=m+'par+';if(y) extra+=y+'may21+';if(a) extra+=a+'abu+';if(hy) extra+=hy+'hma12+';if(hn) extra+=hn+'hme12+';
+  if(extra) extra=extra.slice(0,-1);
+  if(extra) t=base+' '+extra+' ('+p+' pers)\n'+t.substring(base.length);
+  var f=new Date();
+  var dd=f.getDate().toString().padStart(2,'0');
+  var mmm=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'][f.getMonth()];
+  var fecha='Cotización '+dd+'-'+mmm;
+  resultado.textContent=t;
+  (async function(){
+    var incBase=+el('inc').value||0;
+    var incEl=el('inc');
+    incEl.classList.remove('incNeg','incPos');
+    if(incBase<0) incEl.classList.add('incNeg');
+    else if(incBase>0) incEl.classList.add('incPos');
+    var incPar=(m>1)?(m-1)*20:0;
+    var incMay=0;
+    if(m===0){if(y>2) incMay=(y-2)*10;}
+    else{if(y>0) incMay=y*10;}
+    var incTotal=incBase+incMay+incPar;
+    var incAuto=incMay+incPar;
+    var ia=el('incAuto');
+    if(ia){
+      ia.textContent=(incAuto>0?'+':'')+incAuto+'%';
+      ia.classList.remove('incNeg','incPos');
+      if(incAuto<0) ia.classList.add('incNeg');
+      else if(incAuto>0) ia.classList.add('incPos');
+    }
+    var precioMatch=t.match(/\*Precio\s+\$(\d[\d\.]*)-?\*/);
+    var precioBase=precioMatch?+(precioMatch[1].replace(/\./g,'')):0;
+    var precioARS=Math.round((precioBase*(1+incTotal/100))/1000)*1000;
+    var inpPS=el('precioSemana');
+    if(inpPS){
+      var fechaMatch=t.match(/(\d{2})\/(\d{2})\s+al\s+[^\s]+\s+(\d{2})\/(\d{2})\/(\d{2,4})/);
+      if(fechaMatch){
+        var anioFin=+fechaMatch[5]<100?2000+ +fechaMatch[5]: +fechaMatch[5];
+        var fIni=new Date(anioFin, +fechaMatch[2]-1, +fechaMatch[1]);
+        var fFin=new Date(anioFin, +fechaMatch[4]-1, +fechaMatch[3]);
+        if(fFin<fIni) fIni.setFullYear(anioFin-1);
+        var diasPer=Math.round((fFin-fIni)/(1000*60*60*24));
+        if(diasPer>0) inpPS.value=Math.round((precioARS/diasPer*7)/1000)*1000;
+        else inpPS.value=precioARS;
+      } else { inpPS.value=precioARS; }
+    }
+    cotizarFechas();
+    t=t.replace(/\$[\d\.]+-/,'$'+precioARS.toLocaleString('es-AR')+'.-');
+    var usdMatch=t.match(/usd\s*([\d\.]+)/i);
+    var precioUSD=0;
+    if(usdMatch){
+      var usdBase=+(usdMatch[1].replace(/\./g,''));
+      precioUSD=Math.round((usdBase*(1+incTotal/100))/10)*10;
+      t=t.replace(/usd\s*[\d\.\-]+/i,'usd '+precioUSD.toLocaleString('es-AR')+'.-');
+    }
+    resultado.textContent=t;
+    resultado.textContent=resultado.textContent.replace(/(\*Precio\s+\$[\d\.]+\.\-\*)/,'$1\n');
+    var txt=resultado.textContent;
+    var monVal=el('mon').value;
+    if(monVal==='usd'){txt=txt.replace(/\*Precio\s+\$[^\*]*\*\s*/gi,'');}
+    else{txt=txt.replace(/\*Precio\s+usd[^\*]*\*\s*/gi,'');}
+    resultado.textContent=txt.trim();
+    if(incBase<0){
+      var descPct=Math.abs(incBase);
+      resultado.textContent=resultado.textContent.replace(
+        /(\*Precio[^\n]+)/,
+        '$1\nIncluye descuento promocional del '+descPct+'%'
+      );
+    }
+    var fechaLimpia=fecha.replace('Cotización ','');
+    var precioFirma=(monVal==='usd'&&precioUSD)?precioUSD:precioARS;
+    var firmaBase=base+'|'+p+'|'+precioFirma+'|'+fechaLimpia;
+    var hash=await generarHash(firmaBase);
+    var firmaHTML='<div class="firma">_Cotiz.: '+hash+' '+fechaLimpia+'\t Lista: '+DB_FECHA+'_</div>';
+    el('v_per').value=base;
+    el('v_pers').value=p;
+    el('v_precio').value=precioFirma;
+    el('v_fecha').value=fechaLimpia;
+    el('v_firma').value=hash;
+    if(bv) bv.disabled=false;
+    document.querySelectorAll('.firma').forEach(e=>e.remove());
+    resultado.textContent=resultado.textContent.trim();
+    resultado.insertAdjacentHTML('afterend',firmaHTML);
+    btn.disabled=false;
+    if(btnWpp) btnWpp.disabled=false;
+    if(bew) bew.disabled=false;
+    generarLargo(resultado.textContent);
+    if(bl) bl.disabled=false;
+    var bel=el('btnEnviarWppLargo');if(bel) bel.disabled=false;
+    saveState();
+  })();
+}
+function copiar(){
+  var b=el('btnCopiar');if(b.disabled) return;
+  var texto=el('resultado').textContent;
+  var firma=document.querySelector('.firma');
+  if(firma) texto+='\n\n'+firma.textContent;
+  navigator.clipboard.writeText(texto);
+  b.textContent='COPIA OK';b.classList.add('copiado');
+  setTimeout(function(){b.textContent='COPIAR +ID';b.classList.remove('copiado');},1500);
+}
+function copiarWpp(){
+  var t=el('resultado').textContent.trim();
+  if(!t) return;
+  navigator.clipboard.writeText(t);
+  var b=el('btnCopiarWpp');if(!b) return;
+  b.textContent='COPIA OK';b.classList.add('copiado');
+  setTimeout(function(){b.textContent='COPIAR';b.classList.remove('copiado');},1500);
+}
+function enviarWpp(){
+  var t=el('resultado').textContent.trim();
+  if(!t) return;
+  window.open('https://wa.me/?text='+encodeURIComponent(t),'_blank');
+}
+function copiarLargo(){
+  if(el('cotizacion').textContent.trim()==='') return;
+  navigator.clipboard.writeText(el('cotizacion').textContent);
+  var b=el('btnCopiarLargo');if(!b) return;
+  b.textContent='COPIA OK';b.classList.add('copiado');
+  setTimeout(function(){b.textContent='COPIAR Extendida';b.classList.remove('copiado');},1500);
+}
+function enviarWppLargo(){
+  var t=el('cotizacion').textContent.trim();
+  if(!t) return;
+  window.open('https://wa.me/?text='+encodeURIComponent(t),'_blank');
+}
+function copiarFechas(){
+  const t=el('resFechas').textContent.trim();
+  if(!t) return;
+  navigator.clipboard.writeText(t);
+  const b=el('btnCopiarFechas');
+  b.textContent='COPIA OK';b.classList.add('copiado');
+  setTimeout(function(){b.textContent='COPIAR';b.classList.remove('copiado');},1500);
+}
+function enviarWppFechas(){
+  var t=el('resFechas').textContent.trim();
+  if(!t) return;
+  window.open('https://wa.me/?text='+encodeURIComponent(t),'_blank');
+}
+function setDefaults(){
+  el('mat').value=1;el('may').value=0;el('abu').value=0;
+  el('hma').value=0;el('hme').value=0;el('inc').value=0;
+}
+function limpiar(){
+  setDefaults();
+  el('codigo').value='';
+  var s=el('selPeriodo');if(s) s.value='';
+  el('resultado').textContent='';
+  el('cotizacion').textContent='';
+  el('btnCopiar').disabled=true;
+  var bw=el('btnCopiarWpp');if(bw) bw.disabled=true;
+  var bew=el('btnEnviarWpp');if(bew) bew.disabled=true;
+  var bl=el('btnCopiarLargo');if(bl) bl.disabled=true;
+  var bel=el('btnEnviarWppLargo');if(bel) bel.disabled=true;
+  var bv=el('btnVerificar');if(bv) bv.disabled=true;
+  el('v_per').value='';el('v_pers').value='';el('v_precio').value='';
+  el('v_fecha').value='';el('v_firma').value='';
+  el('v_resultado').textContent='';el('v_resultado').className='verifBox';
+  document.querySelectorAll('.firma').forEach(e=>e.remove());
+  el('resFechas').textContent='';
+  el('precioSemana').value='';
+  var bf=el('btnCopiarFechas');if(bf) bf.disabled=true;
+  var bewf=el('btnEnviarWppFechas');if(bewf) bewf.disabled=true;
+  el('fDesde').value='';el('fHasta').value='';
+  el('cantDias').value='';
+  el('inc').classList.remove('incNeg','incPos');
+  var ia=el('incAuto');if(ia){ia.textContent='0%';ia.classList.remove('incNeg','incPos');}
+  clearState();
+  el('codigo').focus();
+}
+function generarLargo(textoCorto){
+  if(!textoCorto) return;
+  var largo='';
+  largo+='Hola! ¿Cómo estás? Buen día!\n\n';
+  largo+=textoCorto+'\n\n';
+  largo+='El saldo deberá ser cancelado en efectivo al ingreso.\n';
+  largo+='Solo el depósito de la reserva congela el precio.\n';
+  largo+='Los precios se ajustan semanalmente.\n\n';
+  largo+='En nuestra página podés encontrar información adicional, detalles y fotos.\n';
+  largo+='www.PostaDelEste.com.ar\n\n';
+  largo+='Alcances de lo ofrecido\nwww.PostaDelEste.com.ar/alcances\n\n';
+  largo+='Cualquier inquietud no dudes en contactarnos!\nGracias por tu consulta!\n\n';
+  largo+='Cordiales saludos,\nSergio.\n\n';
+  largo+='Posta del Este.\n+54 11 6789-9975\nwww.PostaDelEste.com.ar\n\n';
+  largo+='(Consultá por WhatsApp de 9.00 a 21.00 es más rápido)\n';
+  el('cotizacion').textContent=largo;
+}
+async function verificar(){
+  var base=el('v_per').value+'|'+el('v_pers').value+'|'+el('v_precio').value+'|'+el('v_fecha').value;
+  var esperado=await generarHash(base);
+  var vr=el('v_resultado');
+  if(esperado===el('v_firma').value.toUpperCase()){
+    vr.textContent='Cotización íntegra';vr.className='verifBox ok';
+  }else{
+    vr.textContent='Cotización alterada';vr.className='verifBox bad';
+  }
+}
+window.addEventListener('load',function(){
+  cargarPeriodos();
+  var esRecarga=false;
+  try{esRecarga=!!sessionStorage.getItem('tabActiva');}catch(e){}
+  try{sessionStorage.setItem('tabActiva','1');}catch(e){}
+  if(!esRecarga){
+    limpiar();
+  } else {
+    var restored=restoreState();
+    if(!restored) setDefaults();
+    if(restored){
+      if(el('codigo').value) buscar();
+      if(el('fDesde').value&&el('fHasta').value) cotizarFechas();
+    }
+  }
+  navFields.forEach(function(id){
+    var e=el(id);if(e) e.addEventListener('keydown',navKeyHandler);
+  });
+});
+</script>
+<h3 style="margin-top:30px;">Cotización Extendida</h3>
+<div id='cotizacion' style='margin-bottom:25px;'></div>
+<button id='btnCopiarLargo' onclick='copiarLargo()' disabled>COPIAR Extendida</button>
+<button id='btnEnviarWppLargo' class='btnWpp' onclick='enviarWppLargo()' disabled>WPP</button>
+<h3 style="margin-top:30px;">Verificar cotización</h3>
+<div style='font-size:14px;color:#ccc;'>
+Periodo <input id='v_per' style='width:70px;'> Personas <input id='v_pers' style='width:40px;'> Precio <input id='v_precio' style='width:70px;'> Fecha <input id='v_fecha' style='width:80px;'> Firma <input id='v_firma' style='width:80px;'>
+<br><br><button id='btnVerificar' onclick='verificar()' disabled>VERIFICAR</button><div id='v_resultado' class='verifBox'></div>
+</div>
+<div class='version'>Ver. v3.03 06-May-26 / Database 27-Sep-26 14:26</div>
+</div></body></html>
