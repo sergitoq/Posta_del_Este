@@ -603,6 +603,9 @@ function buscar(){
   var dd=f.getDate().toString().padStart(2,'0');
   var mmm=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'][f.getMonth()];
   var fecha='Cotización '+dd+'-'+mmm;
+  var fmtF=function(d){return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getFullYear()).slice(-2);};
+  var fVal=new Date(f.getFullYear(),f.getMonth(),f.getDate()+5);
+  t+='\n'+fmtF(f)+' - válida hasta el '+fmtF(fVal);
   resultado.textContent=t;
   (async function(){
     var incBase=+el('inc').value||0;
@@ -819,5 +822,5 @@ window.addEventListener('load',function(){
 Periodo <input id='v_per' style='width:70px;'> Personas <input id='v_pers' style='width:40px;'> Precio <input id='v_precio' style='width:70px;'> Fecha <input id='v_fecha' style='width:80px;'> Firma <input id='v_firma' style='width:80px;'>
 <br><br><button id='btnVerificar' onclick='verificar()' disabled>VERIFICAR</button><div id='v_resultado' class='verifBox'></div>
 </div>
-<div class='version'>Ver. v3.05 07-Oct-26 / Database 07-Oct-26 13:00</div>
+<div class='version'>Ver. v3.06 07-Oct-26 / Database 07-Oct-26 13:12</div>
 </div></body></html>
