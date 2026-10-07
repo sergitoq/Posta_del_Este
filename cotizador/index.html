@@ -6,31 +6,48 @@
 <meta http-equiv='Pragma' content='no-cache'>
 <meta http-equiv='Expires' content='0'>
 <title>Cotizador Posta del Este</title>
+<link rel='preconnect' href='https://fonts.googleapis.com'>
+<link href='https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap' rel='stylesheet'>
 <style>
-body{font-family:Arial;background:#121212;color:#e6e6e6;padding:20px;}
-#box{background:#1d1d1d;padding:22px;border-radius:14px;}
-input,select{background:#222;color:#fff;border:1px solid #333;border-radius:8px;padding:10px;font-size:16px;margin:6px 4px;}
-button{background:#0a84ff;color:#fff;border:none;border-radius:8px;padding:10px 14px;font-size:15px;margin-top:12px;margin-right:4px;}
-button:disabled{background:#555;color:#aaa;}
-#resultado,#cotizacion{white-space:pre-wrap;background:#1a1a1a;border:1px solid #333;padding:16px;margin-top:20px;border-radius:10px;font-size:18px;}
+:root{--ocean:#1a6e8a;--ocean2:#0d4f66;--pine:#1e3d2f;--pine2:#2d5c43;--sunset:#e07b3a;--sunset2:#c85f1e;--dark:#111a15;--sky:#7ed4e8;}
+body{font-family:'Outfit',sans-serif;background:var(--dark);color:#fff;margin:0;padding:0 0 20px;}
+a{text-decoration:none;color:inherit;}
+#navbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;padding:1rem 2rem;background:rgba(14,35,24,0.97);backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(255,255,255,0.06);margin-bottom:20px;}
+.nav-brand{margin-right:auto;font-family:'Playfair Display',serif;font-style:italic;font-size:1.5rem;letter-spacing:0.02em;color:#fff;}
+.nav-link{color:rgba(255,255,255,0.8);font-size:0.82rem;padding:0.4rem 0.65rem;border-radius:2rem;transition:all 0.2s;}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,0.12);}
+#box{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:22px;border-radius:12px;max-width:1100px;margin:0 auto;}
+@media(max-width:768px){#navbar{padding:1rem 1.5rem;}#box{margin:0 10px;}}
+h3{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#fff;}
+input,select{font-family:'Outfit',sans-serif;background:#1a2a20;color:#fff;border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:10px;font-size:16px;margin:6px 4px;color-scheme:dark;}
+input:focus,select:focus{outline:none;border-color:var(--sky);}
+select option{background:#1a2a20;color:#fff;}
+button{font-family:'Outfit',sans-serif;font-weight:600;background:var(--ocean);color:#fff;border:none;border-radius:2rem;padding:10px 18px;font-size:15px;margin-top:12px;margin-right:4px;cursor:pointer;transition:all 0.2s;}
+button:hover:not(:disabled){background:var(--ocean2);}
+button:disabled{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.35);cursor:default;}
+#resultado,#cotizacion{white-space:pre-wrap;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);padding:16px;margin-top:20px;border-radius:10px;font-size:18px;}
 .error{color:#ff4c4c;font-weight:bold;font-size:20px;}
-.version{margin-top:20px;font-size:13px;color:#888;text-align:right;}
-.firma{font-size:12px;color:#999;font-weight:normal;}
+.version{margin-top:20px;font-size:13px;color:rgba(255,255,255,0.4);text-align:right;}
+.firma{font-size:12px;color:rgba(255,255,255,0.45);font-weight:normal;}
 .verifBox{display:inline-flex;align-items:center;justify-content:center;height:48px;min-width:150px;border-radius:8px;font-size:16px;font-weight:bold;margin-left:10px;}
-.ok{background:#1f7a3a;color:#eaffea;}
+.ok{background:var(--pine2);color:#eaffea;}
 .bad{background:#8b1e1e;color:#ffecec;}
 .incNeg{color:#ff4c4c;font-weight:bold;}
 .incPos{color:#4caf50;font-weight:bold;}
 .verifBox.ok::before{content:'\2713 ';font-weight:bold;}
 .verifBox.bad::before{content:'\2717 ';font-weight:bold;}
-.copiado{background:#2e7d32!important;color:#eaffea;}
+.copiado{background:var(--pine2)!important;color:#eaffea;}
 .btnWpp{background:#25d366!important;color:#fff;}
-.btnWpp:disabled{background:#555!important;color:#aaa;}
+.btnWpp:hover:not(:disabled){background:#1ebe5d!important;}
+.btnWpp:disabled{background:rgba(255,255,255,0.08)!important;color:rgba(255,255,255,0.35);}
 select option[value^='-']{color:#ff4c4c;font-weight:bold;}
 select option[value^='+']{color:#4caf50;font-weight:bold;}
-.resBox{white-space:pre-wrap;background:#1a1a1a;border:1px solid #333;padding:16px;margin-top:15px;border-radius:10px;font-size:18px;}
-input[readonly]{background:#333;color:#aaa;cursor:default;}
-</style></head><body><div id='box'>
+.resBox{white-space:pre-wrap;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);padding:16px;margin-top:15px;border-radius:10px;font-size:18px;}
+input[readonly]{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);cursor:default;}
+hr{border:none;height:1px;background:rgba(255,255,255,0.08);}
+</style></head><body>
+<nav id='navbar'><a href='https://postadeleste.com.ar/index.html' class='nav-brand'>Posta del Este</a><a href='https://postadeleste.com.ar/index.html' class='nav-link'>Inicio</a></nav>
+<div id='box'>
 <h3>Cotización y Vacante de Períodos</h3>
 <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
 <select id='selPeriodo' onchange="if(this.value){document.getElementById('codigo').value=this.value;buscar();saveState();}" style='max-width:90px;flex:0 0 auto;'>
@@ -57,7 +74,7 @@ Ind <select id='inc' onchange='buscar();saveState();' style='width:80px;'><optio
 <button id='btnCopiarWpp' onclick='copiarWpp()' disabled>COPIAR</button>
 <button id='btnEnviarWpp' class='btnWpp' onclick='enviarWpp()' disabled>WPP</button>
 <button id='btnCopiar' onclick='copiar()' disabled>COPIAR +ID</button>
-<hr style='margin:25px 0;border-color:#333;'>
+<hr style='margin:25px 0;'>
 <h3>Cotización por Fechas</h3>
 <div style='display:flex;gap:10px;flex-wrap:wrap;align-items:center;'>
 Desde <input type='date' id='fDesde' onchange='syncHasta();cotizarFechas();saveState();'>
@@ -798,9 +815,9 @@ window.addEventListener('load',function(){
 <button id='btnCopiarLargo' onclick='copiarLargo()' disabled>COPIAR Extendida</button>
 <button id='btnEnviarWppLargo' class='btnWpp' onclick='enviarWppLargo()' disabled>WPP</button>
 <h3 style="margin-top:30px;">Verificar cotización</h3>
-<div style='font-size:14px;color:#ccc;'>
+<div style='font-size:14px;color:rgba(255,255,255,0.75);'>
 Periodo <input id='v_per' style='width:70px;'> Personas <input id='v_pers' style='width:40px;'> Precio <input id='v_precio' style='width:70px;'> Fecha <input id='v_fecha' style='width:80px;'> Firma <input id='v_firma' style='width:80px;'>
 <br><br><button id='btnVerificar' onclick='verificar()' disabled>VERIFICAR</button><div id='v_resultado' class='verifBox'></div>
 </div>
-<div class='version'>Ver. v3.04 02-Oct-26 / Database 07-Oct-26 12:53</div>
+<div class='version'>Ver. v3.05 07-Oct-26 / Database 07-Oct-26 13:00</div>
 </div></body></html>
