@@ -26,6 +26,8 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
 .badge-disp{display:inline-block;background:#1f4a2e;color:#4ade80;font-size:0.75rem;font-weight:600;padding:0.25rem 0.75rem;border-radius:2rem;border:1px solid rgba(74,222,128,0.3);cursor:pointer;transition:background .2s,transform .15s;}
 .badge-disp:hover{background:#2a6040;transform:scale(1.05);}
 @media(hover:hover){tbody tr:hover .badge-disp{background:#4ade80;color:#0e2318;border-color:#4ade80;font-size:0;}tbody tr:hover .badge-disp::after{content:'Pedir cotizaci\00f3n';font-size:0.9rem;font-weight:700;}}
+@keyframes latido{0%,60%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(74,222,128,0.6);}30%{transform:scale(1.1);box-shadow:0 0 0 6px rgba(74,222,128,0);}}
+@media(hover:none){.badge-disp{animation:latido 2.5s ease-in-out infinite;}}
 .badge-cons{display:inline-block;background:#3a2a10;color:#f0a742;font-size:0.75rem;font-weight:600;padding:0.25rem 0.75rem;border-radius:2rem;border:1px solid rgba(240,167,66,0.3);}
 .badge-vacio{display:inline-block;width:20px;height:2px;background:rgba(255,255,255,0.1);border-radius:2px;}
 .temporada{margin-bottom:4rem;}.temporada h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:1.5rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(255,255,255,0.1);}
@@ -202,7 +204,7 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
         <td class='disponible'><span class='badge-vacio'></span></td>
         <td class='disponible'><span class='badge-disp' data-periodo='Día Vet Malvinas' data-fecha='Vie 02/04 al Dom 04/04' data-casa='Casa Fondo'>Disponible</span></td></tr>
     </tbody></table>
-  <p class='version'>Versi&#243;n 16/Oct/26 17:05</p>
+  <p class='version'>Versi&#243;n 16/Oct/26 17:17</p>
   <div class='cta-box'>
     <div class='cta-box-inner'>
       <h3>&#191;Te interesa alguna fecha?</h3>
