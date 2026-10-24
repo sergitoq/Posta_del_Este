@@ -16,6 +16,8 @@
 .content{max-width:900px;margin:0 auto;padding:4rem 3rem 6rem;}
 .nav-links a.active{color:#fff;background:rgba(255,255,255,0.18);font-weight:600;}
 @media(max-width:600px){.content{padding:3rem 1.25rem 4rem;}.page-hero{padding:7rem 1.5rem 2.5rem;}tbody td{padding:0.6rem 0.5rem;font-size:0.82rem;}}
+.hero-nav{display:none;}
+@media(max-width:768px){.hero-nav{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;max-width:360px;margin-bottom:1.5rem;}.hero-nav a{text-align:center;color:#fff;font-size:0.9rem;font-weight:500;padding:0.7rem 0.75rem;border-radius:2rem;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.35);backdrop-filter:blur(8px);}.hero-nav a:active{background:rgba(255,255,255,0.2);}}
 table{width:100%;border-collapse:collapse;}
 thead th{font-size:0.72rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;padding:0.75rem 1rem;text-align:left;border-bottom:2px solid rgba(255,255,255,0.1);}
 thead th.frente{color:#7ed4e8;text-align:center;}thead th.fondo{color:#e07b3a;text-align:center;}
@@ -87,6 +89,14 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
 </nav>
 <header class='page-hero'>
   <div class='page-hero-content'>
+    <nav class='hero-nav' aria-label='P&#225;ginas'>
+      <a href='index.html'>Inicio</a>
+      <a href='casa-frente.html'>Casa Frente</a>
+      <a href='casa-fondo.html'>Casa Fondo</a>
+      <a href='alcances.html'>Alcances</a>
+      <a href='como-llegar.html'>Como llegar</a>
+      <a href='entorno.html'>Entorno</a>
+    </nav>
     <h1>Disponibilidad</h1>
     <p>Alquileres de s&#225;bado a s&#225;bado en temporada alta. Fines de semana largo en temporada baja.</p>
   </div>
@@ -204,7 +214,7 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
         <td class='disponible'><span class='badge-vacio'></span></td>
         <td class='disponible'><span class='badge-disp' data-periodo='Día Vet Malvinas' data-fecha='Vie 02/04 al Dom 04/04' data-casa='Casa Fondo'>Cotizar</span></td></tr>
     </tbody></table>
-  <p class='version'>Versi&#243;n 21/Oct/26 11:56</p>
+  <p class='version'>Versi&#243;n 24/Oct/26 10:28</p>
   <div class='cta-box'>
     <div class='cta-box-inner'>
       <h3>&#191;Te interesa alguna fecha?</h3>
