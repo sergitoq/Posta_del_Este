@@ -66,7 +66,7 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
 .total-bar span{color:rgba(255,255,255,0.5);}.total-bar strong{color:#fff;}.total-bar.over strong{color:#f87171;}
 .modal-error{display:none;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);border-radius:8px;padding:0.75rem 1rem;color:#f87171;font-size:0.85rem;margin-bottom:1rem;}
 .modal-error.visible{display:block;}
-.modal-extra{display:none;align-items:center;gap:0.6rem;font-size:0.85rem;color:#fff;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.3);border-radius:10px;padding:0.6rem 0.75rem;margin:-0.75rem 0 1.25rem;cursor:pointer;}
+.modal-extra{display:none;align-items:center;gap:0.6rem;font-size:0.85rem;color:#fff;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.3);border-radius:10px;padding:0.6rem 0.75rem;margin:0 0 1.25rem;cursor:pointer;}
 .modal-extra.visible{display:flex;}.modal-extra input{accent-color:#4ade80;width:18px;height:18px;flex-shrink:0;}
 .modal-nota{font-size:0.85rem;font-weight:500;color:#4ade80;text-align:center;margin-bottom:1rem;}
 .modal-btns{display:flex;gap:0.75rem;margin-top:1.5rem;}
@@ -107,7 +107,6 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
   <div id='consulta-modal'>
     <h3>Consultar disponibilidad</h3>
     <p class='modal-periodo' id='modal-periodo'></p>
-    <label class='modal-extra' id='modal-extra'><input type='checkbox' id='chk-extra'><span id='txt-extra'></span></label>
     <div class='personas-grid'>
       <div class='persona-item'><label>Pareja</label><div class='mcounter'><button id='m-pareja'>&#8722;</button><span id='cnt-pareja'>0</span><button id='p-pareja'>+</button></div></div>
       <div class='persona-item'><label>Hijo +12</label><div class='mcounter'><button id='m-hijomay'>&#8722;</button><span id='cnt-hijomay'>0</span><button id='p-hijomay'>+</button></div></div>
@@ -116,6 +115,7 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
       <div class='persona-item'><label>Adulto</label><div class='mcounter'><button id='m-adultos'>&#8722;</button><span id='cnt-adultos'>0</span><button id='p-adultos'>+</button></div></div>
     </div>
     <div class='total-bar' id='total-bar'><span>Total personas</span><strong id='total-display'>0 / 6</strong></div>
+    <label class='modal-extra' id='modal-extra'><input type='checkbox' id='chk-extra'><span id='txt-extra'></span></label>
     <div class='modal-error' id='modal-error'></div>
     <p class='modal-nota'>La cantidad de personas modifica el precio.</p>
     <div class='modal-btns'>
@@ -148,7 +148,7 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
         <td class='disponible'><span class='badge-disp' data-periodo='4a semana Dic' data-fecha='Sáb 26/12 al Sáb 02/01' data-casa='Casa Fondo'>Cotizar</span></td></tr>
       <tr><td>1a semana Ene</td><td class='fecha'>Sáb 02/01 al Sáb 09/01</td>
         <td class='disponible'><span class='badge-vacio'></span></td>
-        <td class='disponible'><span class='badge-disp' data-periodo='1a semana Ene' data-fecha='Sáb 02/01 al Sáb 09/01' data-casa='Casa Fondo'>Cotizar</span></td></tr>
+        <td class='disponible'><span class='badge-vacio'></span></td></tr>
       <tr><td>2a semana Ene</td><td class='fecha'>Sáb 09/01 al Sáb 16/01</td>
         <td class='disponible'><span class='badge-vacio'></span></td>
         <td class='disponible'><span class='badge-disp' data-periodo='2a semana Ene' data-fecha='Sáb 09/01 al Sáb 16/01' data-casa='Casa Fondo'>Cotizar</span></td></tr>
@@ -217,7 +217,7 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
         <td class='disponible'><span class='badge-vacio'></span></td>
         <td class='disponible'><span class='badge-disp' data-periodo='Día Vet Malvinas' data-fecha='Vie 02/04 al Dom 04/04' data-casa='Casa Fondo'>Cotizar</span></td></tr>
     </tbody></table>
-  <p class='version'>Versi&#243;n 24/Oct/26 12:19</p>
+  <p class='version'>Versi&#243;n 24/Oct/26 12:33</p>
   <div class='cta-box'>
     <div class='cta-box-inner'>
       <h3>&#191;Te interesa alguna fecha?</h3>
