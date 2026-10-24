@@ -241,6 +241,23 @@
       flex-shrink: 0;
       margin-top: 0.25em;
     }
+    /* ── HERO NAV (solo teléfono, mismo corte que la hamburguesa de style.css) ── */
+    .hero-nav { display: none; }
+    @media (max-width: 768px) {
+      .hero-nav {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+        max-width: 360px; margin-bottom: 1.5rem;
+      }
+      .hero-nav a {
+        text-align: center; color: #fff;
+        font-size: 0.9rem; font-weight: 500;
+        padding: 0.7rem 0.75rem; border-radius: 2rem;
+        background: rgba(0,0,0,0.35);
+        border: 1px solid rgba(255,255,255,0.35);
+        backdrop-filter: blur(8px);
+      }
+      .hero-nav a:active { background: rgba(255,255,255,0.2); }
+    }
   </style>
 </head>
 <body>
@@ -264,6 +281,14 @@
   <div class="page-hero-bg" style="background-image: url('fotos/casa-frente/cft-hero.jpg')"></div>
   <div class="page-hero-overlay"></div>
   <div class="page-hero-content">
+    <nav class="hero-nav" aria-label="Páginas">
+      <a href="index.html">Inicio</a>
+      <a href="disponibilidad.html">Disponibilidad</a>
+      <a href="casa-fondo.html">Casa Fondo</a>
+      <a href="alcances.html">Alcances</a>
+      <a href="como-llegar.html">Como llegar</a>
+      <a href="entorno.html">Entorno</a>
+    </nav>
     <p class="page-eyebrow">Las casas</p>
     <h1>Casa <em>Frente</em></h1>
     <p>Dos plantas, chimenea, galería y vistas a la reserva. Para hasta 6 personas.</p>
