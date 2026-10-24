@@ -66,6 +66,8 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
 .total-bar span{color:rgba(255,255,255,0.5);}.total-bar strong{color:#fff;}.total-bar.over strong{color:#f87171;}
 .modal-error{display:none;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);border-radius:8px;padding:0.75rem 1rem;color:#f87171;font-size:0.85rem;margin-bottom:1rem;}
 .modal-error.visible{display:block;}
+.modal-extra{display:none;align-items:center;gap:0.6rem;font-size:0.85rem;color:#fff;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.3);border-radius:10px;padding:0.6rem 0.75rem;margin:-0.75rem 0 1.25rem;cursor:pointer;}
+.modal-extra.visible{display:flex;}.modal-extra input{accent-color:#4ade80;width:18px;height:18px;flex-shrink:0;}
 .modal-nota{font-size:0.85rem;font-weight:500;color:#4ade80;text-align:center;margin-bottom:1rem;}
 .modal-btns{display:flex;gap:0.75rem;margin-top:1.5rem;}
 .btn-cancelar{flex:1;padding:0.85rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:10px;color:rgba(255,255,255,0.6);font-family:'Outfit',sans-serif;font-size:0.9rem;cursor:pointer;}
@@ -105,6 +107,7 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
   <div id='consulta-modal'>
     <h3>Consultar disponibilidad</h3>
     <p class='modal-periodo' id='modal-periodo'></p>
+    <label class='modal-extra' id='modal-extra'><input type='checkbox' id='chk-extra'><span id='txt-extra'></span></label>
     <div class='personas-grid'>
       <div class='persona-item'><label>Pareja</label><div class='mcounter'><button id='m-pareja'>&#8722;</button><span id='cnt-pareja'>0</span><button id='p-pareja'>+</button></div></div>
       <div class='persona-item'><label>Hijo +12</label><div class='mcounter'><button id='m-hijomay'>&#8722;</button><span id='cnt-hijomay'>0</span><button id='p-hijomay'>+</button></div></div>
@@ -214,7 +217,7 @@ tbody td.fecha{color:rgba(255,255,255,0.45);font-size:0.82rem;}tbody td.disponib
         <td class='disponible'><span class='badge-vacio'></span></td>
         <td class='disponible'><span class='badge-disp' data-periodo='Día Vet Malvinas' data-fecha='Vie 02/04 al Dom 04/04' data-casa='Casa Fondo'>Cotizar</span></td></tr>
     </tbody></table>
-  <p class='version'>Versi&#243;n 24/Oct/26 11:39</p>
+  <p class='version'>Versi&#243;n 24/Oct/26 12:19</p>
   <div class='cta-box'>
     <div class='cta-box-inner'>
       <h3>&#191;Te interesa alguna fecha?</h3>
@@ -274,10 +277,31 @@ function cambiar(key,delta){
   document.getElementById('cnt-'+key).textContent=nuevo;
   actualizarModal();
 }
-function abrirConsulta(periodo,fecha,casa){
-  modalData={periodo:periodo,fecha:fecha,casa:casa};
+var MES_SIG={Dic:'Ene',Ene:'Feb',Feb:'Mar'};
+function parsePer(p){var m=/^(\d)a semana (Dic|Ene|Feb|Mar)$/.exec((p||'').trim());return m?{n:+m[1],mes:m[2]}:null;}
+function buscarSiguiente(badge){
+  if(!badge)return null;
+  var filas=Array.prototype.slice.call(document.querySelectorAll('tbody tr'));
+  var i=filas.indexOf(badge.closest('tr'));if(i<0||i+1>=filas.length)return null;
+  var a=parsePer(badge.dataset.periodo);if(!a)return null;
+  var celda=filas[i+1].cells[badge.dataset.casa==='Casa Frente'?2:3];
+  var sig=celda?celda.querySelector('.badge-disp'):null;if(!sig)return null;
+  var b=parsePer(sig.dataset.periodo);if(!b)return null;
+  var ok=(a.mes===b.mes&&a.n<=3&&b.n===a.n+1)||(a.n===4&&b.n===1&&MES_SIG[a.mes]===b.mes);
+  if(!ok)return null;
+  var per=(a.mes===b.mes)?(a.n+'a y '+b.n+'a semana '+a.mes):(badge.dataset.periodo.trim()+' y '+sig.dataset.periodo.trim());
+  var fec=badge.dataset.fecha.split(' al ')[0]+' al '+sig.dataset.fecha.split(' al ')[1];
+  return {periodo:per,fecha:fec,fechaSig:sig.dataset.fecha};
+}
+function periodoElegido(){var c=document.getElementById('chk-extra');return (modalData.extra&&c.checked)?modalData.extra:{periodo:modalData.periodo,fecha:modalData.fecha};}
+function mostrarPeriodo(){var p=periodoElegido();document.getElementById('modal-periodo').textContent=p.periodo+' \u00b7 '+p.fecha+' \u00b7 '+modalData.casa;}
+function abrirConsulta(periodo,fecha,casa,badge){
+  modalData={periodo:periodo,fecha:fecha,casa:casa,extra:buscarSiguiente(badge)};
+  var chk=document.getElementById('chk-extra');chk.checked=false;
+  document.getElementById('modal-extra').classList.toggle('visible',!!modalData.extra);
+  if(modalData.extra)document.getElementById('txt-extra').textContent='Sumar la semana siguiente ('+modalData.extra.fechaSig+')';
   mkeys.forEach(function(k){contadores[k]=0;document.getElementById('cnt-'+k).textContent='0';});
-  document.getElementById('modal-periodo').textContent=periodo+' \u00b7 '+fecha+' \u00b7 '+casa;
+  mostrarPeriodo();
   document.getElementById('consulta-overlay').classList.add('open');
   actualizarModal();
 }
@@ -287,7 +311,8 @@ function enviarWA(){
   lineas.push('Hola Sergio, buen d\u00eda!');
   lineas.push('');
   lineas.push('Consulto disponibilidad para:');
-  lineas.push('\u2022 '+modalData.periodo+' - '+modalData.fecha);
+  var pe=periodoElegido();
+  lineas.push('\u2022 '+pe.periodo+' - '+pe.fecha);
   lineas.push('\u2022 '+modalData.casa);
   var personas=[];
   if(contadores.pareja>0)personas.push('1 pareja');
@@ -306,11 +331,12 @@ mkeys.forEach(function(k){
   document.getElementById('m-'+k).addEventListener('click',function(){cambiar(k,-1);});
 });
 document.getElementById('btn-cancelar').addEventListener('click',cerrarModal);
+document.getElementById('chk-extra').addEventListener('change',mostrarPeriodo);
 document.getElementById('btn-enviar').addEventListener('click',enviarWA);
 document.getElementById('consulta-overlay').addEventListener('click',function(e){if(e.target===this)cerrarModal();});
 document.querySelectorAll('.badge-disp').forEach(function(b){
   b.addEventListener('click',function(){
-    abrirConsulta(this.dataset.periodo,this.dataset.fecha,this.dataset.casa);
+    abrirConsulta(this.dataset.periodo,this.dataset.fecha,this.dataset.casa,this);
   });
 });
 </script>
