@@ -410,6 +410,9 @@
     .footer-nav a:hover { color: #fff; }
     .footer-copy { color: rgba(255,255,255,0.25); font-size: 0.75rem; }
 
+    /* ── HERO NAV (solo teléfono) ── */
+    .hero-nav { display: none; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
@@ -426,6 +429,20 @@
       .cond-grid { grid-template-columns: 1fr; }
       .contacto-grid { grid-template-columns: 1fr; gap: 3rem; }
       .intro, .casas, .highlights, .condiciones, .contacto, .dispo { padding: 5rem 1.5rem; }
+      .hero { height: auto; min-height: 100svh; padding-top: 5rem; }
+      .hero-nav {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+        max-width: 360px; margin-bottom: 1.5rem;
+      }
+      .hero-nav a {
+        text-align: center; color: #fff;
+        font-size: 0.9rem; font-weight: 500;
+        padding: 0.7rem 0.75rem; border-radius: 2rem;
+        background: rgba(0,0,0,0.35);
+        border: 1px solid rgba(255,255,255,0.35);
+        backdrop-filter: blur(8px);
+      }
+      .hero-nav a:active { background: rgba(255,255,255,0.2); }
     }
     @media (max-width: 540px) {
       .hl-grid { grid-template-columns: 1fr; }
@@ -456,6 +473,14 @@
     <div class="hero-video-bg"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
+      <nav class="hero-nav" aria-label="Páginas">
+        <a href="disponibilidad.html">Disponibilidad</a>
+        <a href="casa-frente.html">Casa Frente</a>
+        <a href="casa-fondo.html">Casa Fondo</a>
+        <a href="alcances.html">Alcances</a>
+        <a href="como-llegar.html">Como llegar</a>
+        <a href="entorno.html">Entorno</a>
+      </nav>
       <div class="hero-badge">Costa del Este · Buenos Aires</div>
       <h1 class="hero-title">Posta<br><em>del Este</em></h1>
       <p class="hero-sub">Dos casas frente a la reserva ecológica. Bosque de pinos, 4 cuadras del mar. Para familias que buscan el descanso de verdad.</p>
