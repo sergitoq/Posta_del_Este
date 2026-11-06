@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Luces - Posta del Este</title>
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<style>
+  :root{
+    --bg:#f3f4f6;
+    --card:#ffffff;
+    --txt:#16202c;
+    --muted:#5d6b7a;
+    --line:#dde3ea;
+    --on:#1e8e4f;
+    --onbg:#e6f5ec;
+    --off:#7a8794;
+    --offbg:#eef1f4;
+    --err:#9a2f2f;
+    --errbg:#fbeaea;
+    --btn:#16202c;
+    --btntxt:#ffffff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#11161c;
+      --card:#1a2129;
+      --txt:#e8edf2;
+      --muted:#9aa7b4;
+      --line:#2a333d;
+      --on:#5cd49a;
+      --onbg:#17302460;
+      --off:#8b97a3;
+      --offbg:#232b34;
+      --err:#ff9a9a;
+      --errbg:#3a1f1f;
+      --btn:#e8edf2;
+      --btntxt:#11161c;
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--txt);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.45;
+    padding:24px 16px 48px;
+  }
+  .wrap{max-width:460px;margin:0 auto}
+  h1{
+    font-size:1.5rem;
+    margin:0 0 4px;
+    letter-spacing:-0.01em;
+  }
+  .sub{
+    color:var(--muted);
+    font-size:0.9rem;
+    margin:0 0 20px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:12px;
+  }
+  .row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .name{
+    font-size:1.05rem;
+    font-weight:600;
+  }
+  .pill{
+    display:inline-block;
+    margin-top:4px;
+    font-size:0.78rem;
+    font-weight:600;
+    letter-spacing:0.02em;
+    padding:3px 10px;
+    border-radius:999px;
+    background:var(--offbg);
+    color:var(--off);
+  }
+  .pill.on{background:var(--onbg);color:var(--on)}
+  button{
+    font:inherit;
+    font-weight:600;
+    color:var(--btntxt);
+    background:var(--btn);
+    border:0;
+    border-radius:10px;
+    padding:14px 20px;
+    min-width:112px;
+    min-height:48px;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  button:disabled{opacity:0.45;cursor:default}
+  .aviso{
+    display:none;
+    background:var(--errbg);
+    color:var(--err);
+    border-radius:12px;
+    padding:14px 16px;
+    font-size:0.92rem;
+    margin-bottom:16px;
+  }
+  .aviso.ver{display:block}
+  footer{
+    color:var(--muted);
+    font-size:0.8rem;
+    margin-top:24px;
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Luces</h1>
+  <p class="sub">Funciona solo conectado al WiFi de la casa.</p>
+
+  <div class="aviso" id="aviso">
+    No hay conexion con el sistema de la casa. Revisa que el telefono este
+    conectado al WiFi de la casa y no usando datos moviles.
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div>
+        <div class="name">Galeria fondo</div>
+        <span class="pill" id="p-galeria">...</span>
+      </div>
+      <button id="b-galeria" disabled>...</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div>
+        <div class="name">Bomba de agua fondo</div>
+        <span class="pill" id="p-bomba">...</span>
+      </div>
+      <button id="b-bomba" disabled>...</button>
+    </div>
+  </div>
+
+  <footer>Posta del Este</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var BASE = "http://192.168.40.200:8099";
+  var DEVS = ["galeria", "bomba"];
+  var estado = {};
+  var ocupado = false;
+
+  function pedir(ruta){
+    var url = BASE + ruta;
+    var opts = {cache:"no-store"};
+    try{
+      // Chrome: permite la llamada a la red local desde una pagina https.
+      // Los navegadores que no lo soportan ignoran la opcion.
+      opts.targetAddressSpace = "local";
+    }catch(e){}
+    return fetch(url, opts).then(function(r){
+      if(!r.ok){ throw new Error("http " + r.status); }
+      return r.json();
+    });
+  }
+
+  function aviso(ver){
+    document.getElementById("aviso").classList.toggle("ver", ver);
+  }
+
+  function pintar(){
+    DEVS.forEach(function(d){
+      var p = document.getElementById("p-" + d);
+      var b = document.getElementById("b-" + d);
+      var v = estado[d];
+      if(v === true || v === false){
+        p.textContent = v ? "Encendido" : "Apagado";
+        p.classList.toggle("on", v);
+        b.textContent = v ? "Apagar" : "Encender";
+        b.disabled = ocupado;
+      }else{
+        p.textContent = "Sin dato";
+        p.classList.remove("on");
+        b.textContent = "-";
+        b.disabled = true;
+      }
+    });
+  }
+
+  function leer(){
+    return pedir("/api/estado").then(function(j){
+      estado = j;
+      aviso(false);
+      pintar();
+    }).catch(function(){
+      estado = {};
+      aviso(true);
+      pintar();
+    });
+  }
+
+  function accionar(d){
+    if(ocupado){ return; }
+    ocupado = true;
+    pintar();
+    var on = estado[d] ? "0" : "1";
+    pedir("/api/set?dev=" + d + "&on=" + on).then(function(j){
+      if(j && (j[d] === true || j[d] === false)){
+        estado[d] = j[d];
+      }
+      aviso(false);
+    }).catch(function(){
+      aviso(true);
+    }).then(function(){
+      ocupado = false;
+      pintar();
+      setTimeout(leer, 1200);
+    });
+  }
+
+  DEVS.forEach(function(d){
+    document.getElementById("b-" + d).addEventListener("click", function(){
+      accionar(d);
+    });
+  });
+
+  leer();
+  setInterval(function(){
+    if(!ocupado && !document.hidden){ leer(); }
+  }, 10000);
+})();
+</script>
+</body>
+</html>
